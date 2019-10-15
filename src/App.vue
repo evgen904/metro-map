@@ -1,27 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <MetroMap />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MetroMap from './components/MetroMap'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    MetroMap,
   }
 }
 </script>
 
 <style lang="scss">
+html, body {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background: #f0f0f0;
+}
+* {
+  box-sizing: border-box;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
