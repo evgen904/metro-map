@@ -2,11 +2,18 @@
   <div class="metro-map">
     <h2>Отметьте станции</h2>
     <div class="metro-map--nav">
-      <SearchStation />
-      <SearchLine />
-      <button class="apply">
-        Выбрать
-      </button>
+      <div>
+        <SearchStation />
+        <SearchLine />
+      </div>
+      <div>
+        <span>
+          очистить все
+        </span>
+        <button class="apply">
+          Выбрать
+        </button>
+      </div>
     </div>
     <Map />
   </div>
@@ -18,7 +25,7 @@ import SearchLine from './SearchLine'
 import Map from './Map'
 
 export default {
-  name: "Metro map",
+  name: 'MetroMap',
   components: {
     SearchStation,
     SearchLine,
@@ -30,20 +37,57 @@ export default {
 <style lang="scss" scoped>
 .metro-map {
   width: 80vw;
+  height: 100vh;
   border: 1px solid #ccc;
   margin: 0 auto;
   padding: 20px;
   background: #fff;
+  display: flex;
+  flex-direction: column;
   h2 {
     font-size: 17px;
     padding: 0;
-    margin: 0;
+    margin: 0 0 15px;
     font-weight: normal;
   }
   &--nav {
     display: flex;
-    .apply {
-      margin-left: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    > div {
+      width: 50%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      &:nth-child(2) {
+        align-items: center;
+      }
+      span {
+        cursor: pointer;
+        color: #2d6cb4;
+        font-size: 13px;
+        margin-left: 20px;
+        &:hover {
+          color: #f51449;
+        }
+      }
+      .apply {
+        cursor: pointer;
+        padding: 8px 20px;
+        margin: 0 0 0 auto;
+        color: #fff;
+        background-color: #498bc3;
+        border: 1px solid #3671a3;
+        font-size: 13px;
+        border-radius: 3px;
+        outline-style: none;
+        &:hover {
+          color: #fff;
+          background-color: #5c97c9;
+          border-color: #498bc3;
+        }
+      }
     }
   }
 }
