@@ -25,9 +25,9 @@
 export default {
   name: 'SearchLine',
   methods: {
-    selectLine(val) {
-      this.lines[val]["selected"] = (!this.lines[val]["selected"]) ? true : false;
-      this.modal = false;
+    selectLine (val) {
+      this.lines[val]['selected'] = (!this.lines[val]['selected'])
+      this.modal = false
     }
   },
   data () {

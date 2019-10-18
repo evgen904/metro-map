@@ -17,25 +17,25 @@
 export default {
   name: 'SearchStation',
   methods: {
-    autoComplete(val) {
-      this.resultAutoComplete = [];
+    autoComplete (val) {
+      this.resultAutoComplete = []
       if (val.length > 2) {
         for (var prop in this.stations) {
-          if (this.stations[prop]['name'].toLowerCase().indexOf(val.toLowerCase()) >-1 ) {
+          if (this.stations[prop]['name'].toLowerCase().indexOf(val.toLowerCase()) > -1) {
             this.resultAutoComplete.push(this.stations[prop])
           }
         }
       }
     },
-    selectStation(val) {
-      console.log(val);
-      this.searchText = "";
-      this.resultAutoComplete = [];
+    selectStation (val) {
+      console.log(val)
+      this.searchText = ''
+      this.resultAutoComplete = []
     }
   },
-  data() {
+  data () {
     return {
-      searchText: "",
+      searchText: '',
       resultAutoComplete: [],
       'stations': {
         '314': {
