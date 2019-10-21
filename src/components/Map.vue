@@ -5,552 +5,82 @@
     <div
       class="map--svg"
     >
-      <svg
-        ref="svgMap"
-        :style="{
-          'transform':`translate3d(${positionMap[0]}px, ${positionMap[1]}px, 0px)`,
-          'width':'780px',
-          'height':'555px',
-          'zoom': stepZoom
-        }"
-        height="555px"
-        width="780px"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g id="transform-wrapper" transform="scale(1 1)">
-          <g id="scheme-layer">
-            <g id="scheme-layer-background">
-              <rect fill="#fff" height="555" stroke="none" width="780" x="0" y="0"></rect>
-            </g>
-            <g fill="none" id="scheme-layer-links" stroke-width="8">
-              <path d="M378,15L378,35" id="link-1002" stroke="#EF1E25"></path>
-              <path d="M378,35L378,55" id="link-2003" stroke="#EF1E25"></path>
-              <path d="M378,55L378,75" id="link-3004" stroke="#EF1E25"></path>
-              <path d="M378,75L378,95" id="link-4005" stroke="#EF1E25"></path>
-              <path d="M378,95L378,115" id="link-5006" stroke="#EF1E25"></path>
-              <path d="M378,115L378,135" id="link-6007" stroke="#EF1E25"></path>
-              <path d="M378,135L378,155" id="link-7008" stroke="#EF1E25"></path>
-              <path d="M378,155L378,175" id="link-8009" stroke="#EF1E25"></path>
-              <path d="M378,175L378,205" id="link-9010" stroke="#EF1E25"></path>
-              <path d="M378,205L333,250" id="link-10011" stroke="#EF1E25"></path>
-              <path d="M333,250L263,320" id="link-11012" stroke="#EF1E25"></path>
-              <path d="M263,320L208,375" id="link-12013" stroke="#EF1E25"></path>
-              <path d="M208,375L168,415L168,440" id="link-13014" stroke="#EF1E25"></path>
-              <path d="M168,440L168,460" id="link-14015" stroke="#EF1E25"></path>
-              <path d="M168,460L168,480" id="link-15016" stroke="#EF1E25"></path>
-              <path d="M168,480L168,500" id="link-16017" stroke="#EF1E25"></path>
-              <path d="M168,500L168,520" id="link-17018" stroke="#EF1E25"></path>
-              <path d="M168,520L168,540" id="link-18019" stroke="#EF1E25"></path>
-              <path d="M208,15L208,35" id="link-20021" stroke="#019EE0"></path>
-              <path d="M208,35L208,55" id="link-21022" stroke="#019EE0"></path>
-              <path d="M208,55L208,75" id="link-22023" stroke="#019EE0"></path>
-              <path d="M208,75L208,95" id="link-23024" stroke="#019EE0"></path>
-              <path d="M208,95L208,115" id="link-24025" stroke="#019EE0"></path>
-              <path d="M208,115L208,135" id="link-25026" stroke="#019EE0"></path>
-              <path d="M208,135L208,155" id="link-26027" stroke="#019EE0"></path>
-              <path d="M208,155L208,205" id="link-27028" stroke="#019EE0"></path>
-              <path d="M208,205L208,250" id="link-28029" stroke="#019EE0"></path>
-              <path d="M208,250L208,390" id="link-29030" stroke="#019EE0"></path>
-              <path d="M208,390L208,420" id="link-30031" stroke="#019EE0"></path>
-              <path d="M208,420L208,440" id="link-31032" stroke="#019EE0"></path>
-              <path d="M208,440L208,460" id="link-32033" stroke="#019EE0"></path>
-              <path d="M208,460L208,480" id="link-33034" stroke="#019EE0"></path>
-              <path d="M208,480L208,500" id="link-34035" stroke="#019EE0"></path>
-              <path d="M208,500L208,520" id="link-35036" stroke="#019EE0"></path>
-              <path d="M208,520L208,540" id="link-36037" stroke="#019EE0"></path>
-              <path d="M126,135L126,155" id="link-71072" stroke="#029A55"></path>
-              <path d="M126,155L126,175" id="link-72038" stroke="#029A55"></path>
-              <path d="M126,175L126,195" id="link-38039" stroke="#029A55"></path>
-              <path d="M126,195L126,200L146,220L208,220" id="link-39040" stroke="#029A55"></path>
-              <path d="M208,220L378,220" id="link-40041" stroke="#029A55"></path>
-              <path d="M378,220L543,220L558,235L558,275" id="link-41042" stroke="#029A55"></path>
-              <path d="M558,275L558,325" id="link-42043" stroke="#029A55"></path>
-              <path d="M558,325L558,345" id="link-43044" stroke="#029A55"></path>
-              <path d="M558,345L558,365" id="link-44045" stroke="#029A55"></path>
-              <path d="M558,365L558,385" id="link-45046" stroke="#029A55"></path>
-              <path d="M558,385L558,405" id="link-46047" stroke="#029A55"></path>
-              <path d="M208,265L333,265" id="link-48049" stroke="#FBAA33"></path>
-              <path d="M333,265L438,265" id="link-49050" stroke="#FBAA33"></path>
-              <path d="M438,265L533,265L558,290" id="link-50051" stroke="#FBAA33"></path>
-              <path d="M558,290L598,330L598,345" id="link-51052" stroke="#FBAA33"></path>
-              <path d="M598,345L598,365" id="link-52053" stroke="#FBAA33"></path>
-              <path d="M598,365L598,385" id="link-53054" stroke="#FBAA33"></path>
-              <path d="M598,385L598,405" id="link-54055" stroke="#FBAA33"></path>
-              <path d="M168,15L168,35" id="link-56057" stroke="#B61D8E"></path>
-              <path d="M168,35L168,55" id="link-57058" stroke="#B61D8E"></path>
-              <path d="M168,55L168,75" id="link-58059" stroke="#B61D8E"></path>
-              <path d="M168,75L168,95" id="link-59060" stroke="#B61D8E"></path>
-              <path d="M168,95L168,240" id="link-60065" stroke="#B61D8E"></path>
-              <path d="M168,240L208,280" id="link-65061" stroke="#B61D8E"></path>
-              <path d="M208,280L263,335" id="link-61062" stroke="#B61D8E"></path>
-              <path d="M263,335L293,365" id="link-62064" stroke="#B61D8E"></path>
-              <path d="M293,365L313,385" id="link-64063" stroke="#B61D8E"></path>
-              <path d="M313,385L333,405" id="link-63066" stroke="#B61D8E"></path>
-              <path d="M333,405L353,425" id="link-66067" stroke="#B61D8E"></path>
-            </g>
-            <g fill="rgba(255,255,255,0.6)" id="scheme-layer-transfers" stroke="#000" stroke-width="2">
-              <path d="M215,250L215,280A7 7 0 0 1 201 280L201,250A7 7 0 0 1 215 250" id="transfer-61048029"></path>
-              <path d="M270,320L270,335A7 7 0 0 1 256 335L256,320A7 7 0 0 1 270 320" id="transfer-62012"></path>
-              <path d="M565,275L565,290A7 7 0 0 1 551 290L551,275A7 7 0 0 1 565 275" id="transfer-51042"></path>
-              <path d="M340,250L340,265A7 7 0 0 1 326 265L326,250A7 7 0 0 1 340 250" id="transfer-49011"></path>
-              <path d="M215,205L215,220A7 7 0 0 1 201 220L201,205A7 7 0 0 1 215 205" id="transfer-40028"></path>
-              <path d="M385,205L385,220A7 7 0 0 1 371 220L371,205A7 7 0 0 1 385 205" id="transfer-41010"></path>
-              <path d="M215,375L215,390A7 7 0 0 1 201 390L201,375A7 7 0 0 1 215 375" id="transfer-30013"></path>
-            </g>
-            <g id="scheme-layer-stations" stroke="#000" stroke-opacity="0.5" stroke-width="1">
-              <circle cx="378" cy="15" fill="#EF1E25" id="station-314" r="5"></circle>
-              <circle cx="378" cy="35" fill="#EF1E25" id="station-315" r="5"></circle>
-              <circle cx="378" cy="55" fill="#EF1E25" id="station-316" r="5"></circle>
-              <circle cx="378" cy="75" fill="#EF1E25" id="station-317" r="5"></circle>
-              <circle cx="378" cy="95" fill="#EF1E25" id="station-318" r="5"></circle>
-              <circle cx="378" cy="115" fill="#EF1E25" id="station-319" r="5"></circle>
-              <circle cx="378" cy="135" fill="#EF1E25" id="station-320" r="5"></circle>
-              <circle cx="378" cy="155" fill="#EF1E25" id="station-321" r="5"></circle>
-              <circle cx="378" cy="175" fill="#EF1E25" id="station-322" r="5"></circle>
-              <circle cx="378" cy="205" fill="#EF1E25" id="station-323" r="5" stroke="#fff"></circle>
-              <circle cx="333" cy="250" fill="#EF1E25" id="station-324" r="5" stroke="#fff"></circle>
-              <circle cx="263" cy="320" fill="#EF1E25" id="station-325" r="5" stroke="#fff"></circle>
-              <circle cx="208" cy="375" fill="#EF1E25" id="station-326" r="5" stroke="#fff"></circle>
-              <circle cx="168" cy="440" fill="#EF1E25" id="station-327" r="5"></circle>
-              <circle cx="168" cy="460" fill="#EF1E25" id="station-328" r="5"></circle>
-              <circle cx="168" cy="480" fill="#EF1E25" id="station-329" r="5"></circle>
-              <circle cx="168" cy="500" fill="#EF1E25" id="station-330" r="5"></circle>
-              <circle cx="168" cy="520" fill="#EF1E25" id="station-331" r="5"></circle>
-              <circle cx="168" cy="540" fill="#EF1E25" id="station-332" r="5"></circle>
-              <circle cx="208" cy="15" fill="#019EE0" id="station-333" r="5"></circle>
-              <circle cx="208" cy="35" fill="#019EE0" id="station-334" r="5"></circle>
-              <circle cx="208" cy="55" fill="#019EE0" id="station-335" r="5"></circle>
-              <circle cx="208" cy="75" fill="#019EE0" id="station-336" r="5"></circle>
-              <circle cx="208" cy="95" fill="#019EE0" id="station-337" r="5"></circle>
-              <circle cx="208" cy="115" fill="#019EE0" id="station-338" r="5"></circle>
-              <circle cx="208" cy="135" fill="#019EE0" id="station-339" r="5"></circle>
-              <circle cx="208" cy="155" fill="#019EE0" id="station-340" r="5"></circle>
-              <circle cx="208" cy="205" fill="#019EE0" id="station-341" r="5" stroke="#fff"></circle>
-              <circle cx="208" cy="250" fill="#019EE0" id="station-342" r="5" stroke="#fff"></circle>
-              <circle cx="208" cy="390" fill="#019EE0" id="station-343" r="5" stroke="#fff"></circle>
-              <circle cx="208" cy="420" fill="#019EE0" id="station-344" r="5"></circle>
-              <circle cx="208" cy="440" fill="#019EE0" id="station-345" r="5"></circle>
-              <circle cx="208" cy="460" fill="#019EE0" id="station-346" r="5"></circle>
-              <circle cx="208" cy="480" fill="#019EE0" id="station-347" r="5"></circle>
-              <circle cx="208" cy="500" fill="#019EE0" id="station-348" r="5"></circle>
-              <circle cx="208" cy="520" fill="#019EE0" id="station-349" r="5"></circle>
-              <circle cx="208" cy="540" fill="#019EE0" id="station-350" r="5"></circle>
-              <circle cx="126" cy="135" fill="#029A55" id="station-449" r="5"></circle>
-              <circle cx="126" cy="155" fill="#029A55" id="station-450" r="5"></circle>
-              <circle cx="126" cy="175" fill="#029A55" id="station-351" r="5"></circle>
-              <circle cx="126" cy="195" fill="#029A55" id="station-352" r="5"></circle>
-              <circle cx="208" cy="220" fill="#029A55" id="station-353" r="5" stroke="#fff"></circle>
-              <circle cx="378" cy="220" fill="#029A55" id="station-354" r="5" stroke="#fff"></circle>
-              <circle cx="558" cy="275" fill="#029A55" id="station-355" r="5" stroke="#fff"></circle>
-              <circle cx="558" cy="325" fill="#029A55" id="station-356" r="5"></circle>
-              <circle cx="558" cy="345" fill="#029A55" id="station-357" r="5"></circle>
-              <circle cx="558" cy="365" fill="#029A55" id="station-358" r="5"></circle>
-              <circle cx="558" cy="385" fill="#029A55" id="station-359" r="5"></circle>
-              <circle cx="558" cy="405" fill="#029A55" id="station-360" r="5"></circle>
-              <circle cx="208" cy="265" fill="#FBAA33" id="station-361" r="5" stroke="#fff"></circle>
-              <circle cx="333" cy="265" fill="#FBAA33" id="station-362" r="5" stroke="#fff"></circle>
-              <circle cx="438" cy="265" fill="#FBAA33" id="station-363" r="5"></circle>
-              <circle cx="558" cy="290" fill="#FBAA33" id="station-364" r="5" stroke="#fff"></circle>
-              <circle cx="598" cy="345" fill="#FBAA33" id="station-365" r="5"></circle>
-              <circle cx="598" cy="365" fill="#FBAA33" id="station-366" r="5"></circle>
-              <circle cx="598" cy="385" fill="#FBAA33" id="station-367" r="5"></circle>
-              <circle cx="598" cy="405" fill="#FBAA33" id="station-368" r="5"></circle>
-              <circle cx="168" cy="15" fill="#B61D8E" id="station-369" r="5"></circle>
-              <circle cx="168" cy="35" fill="#B61D8E" id="station-370" r="5"></circle>
-              <circle cx="168" cy="55" fill="#B61D8E" id="station-371" r="5"></circle>
-              <circle cx="168" cy="75" fill="#B61D8E" id="station-372" r="5"></circle>
-              <circle cx="168" cy="95" fill="#B61D8E" id="station-373" r="5"></circle>
-              <circle cx="168" cy="240" fill="#B61D8E" id="station-374" r="5"></circle>
-              <circle cx="208" cy="280" fill="#B61D8E" id="station-375" r="5" stroke="#fff"></circle>
-              <circle cx="263" cy="335" fill="#B61D8E" id="station-376" r="5" stroke="#fff"></circle>
-              <circle cx="293" cy="365" fill="#B61D8E" id="station-377" r="5"></circle>
-              <circle cx="313" cy="385" fill="#B61D8E" id="station-378" r="5"></circle>
-              <circle cx="333" cy="405" fill="#B61D8E" id="station-379" r="5"></circle>
-              <circle cx="353" cy="425" fill="#B61D8E" id="station-380" r="5"></circle>
-            </g>
-            <g fill="#000" font-family="arial,sans-serif" font-size="13" id="scheme-layer-labels">
-              <g id="label-1">
-                <text text-anchor="start" x="387" y="19">
-                  Девяткино
-                </text>
-              </g>
-              <g id="label-2">
-                <text text-anchor="start" x="387" y="39">
-                  Гражданский проспект
-                </text>
-              </g>
-              <g id="label-3">
-                <text fill="#999" text-anchor="start" x="387" y="59">
-                  Академическая
-                </text>
-              </g>
-              <g id="label-4">
-                <text text-anchor="start" x="387" y="79">
-                  Политехническая
-                </text>
-              </g>
-              <g id="label-5">
-                <text text-anchor="start" x="387" y="99">
-                  Площадь Мужества
-                </text>
-              </g>
-              <g id="label-6">
-                <text text-anchor="start" x="387" y="119">
-                  Лесная
-                </text>
-              </g>
-              <g id="label-7">
-                <text text-anchor="start" x="387" y="139">
-                  Выборгская
-                </text>
-              </g>
-              <g id="label-8">
-                <text text-anchor="start" x="387" y="159">
-                  Площадь Ленина
-                </text>
-              </g>
-              <g id="label-9">
-                <text text-anchor="start" x="387" y="179">
-                  Чернышевская
-                </text>
-              </g>
-              <g id="label-10">
-                <text text-anchor="start" x="387" y="209">
-                  Площадь Восстания
-                </text>
-              </g>
-              <g id="label-11">
-                <text text-anchor="start" x="342" y="254">
-                  Владимирская
-                </text>
-              </g>
-              <g id="label-12">
-                <text text-anchor="start" x="272" y="324">
-                  Пушкинская
-                </text>
-              </g>
-              <g id="label-13">
-                <text text-anchor="end" x="199" y="379">
-                  Технологический институт - 1
-                </text>
-              </g>
-              <g id="label-14">
-                <text text-anchor="end" x="159" y="444">
-                  Балтийская
-                </text>
-              </g>
-              <g id="label-15">
-                <text text-anchor="end" x="159" y="464">
-                  Нарвская
-                </text>
-              </g>
-              <g id="label-16">
-                <text text-anchor="end" x="159" y="484">
-                  Кировский завод
-                </text>
-              </g>
-              <g id="label-17">
-                <text text-anchor="end" x="159" y="504">
-                  Автово
-                </text>
-              </g>
-              <g id="label-18">
-                <text text-anchor="end" x="159" y="524">
-                  Ленинский проспект
-                </text>
-              </g>
-              <g id="label-19">
-                <text text-anchor="end" x="159" y="544">
-                  Проспект Ветеранов
-                </text>
-              </g>
-              <g id="label-20">
-                <text text-anchor="start" x="217" y="19">
-                  Парнас
-                </text>
-              </g>
-              <g id="label-21">
-                <text text-anchor="start" x="217" y="39">
-                  Проспект Просвещения
-                </text>
-              </g>
-              <g id="label-22">
-                <text text-anchor="start" x="217" y="59">
-                  Озерки
-                </text>
-              </g>
-              <g id="label-23">
-                <text text-anchor="start" x="217" y="79">
-                  Удельная
-                </text>
-              </g>
-              <g id="label-24">
-                <text text-anchor="start" x="217" y="99">
-                  Пионерская
-                </text>
-              </g>
-              <g id="label-25">
-                <text text-anchor="start" x="217" y="119">
-                  Чёрная речка
-                </text>
-              </g>
-              <g id="label-26">
-                <text text-anchor="start" x="217" y="139">
-                  Петроградская
-                </text>
-              </g>
-              <g id="label-27">
-                <text text-anchor="start" x="217" y="159">
-                  Горьковская
-                </text>
-              </g>
-              <g id="label-28">
-                <text text-anchor="start" x="217" y="209">
-                  Невский проспект
-                </text>
-              </g>
-              <g id="label-29">
-                <text text-anchor="start" x="218" y="241">
-                  <tspan dy="0" x="218">
-                    Сенная
-                  </tspan>
-                  <tspan dy="13" x="218">
-                    площадь
-                  </tspan>
-                </text>
-              </g>
-              <g id="label-30">
-                <text text-anchor="end" x="199" y="394">
-                  Технологический институт - 2
-                </text>
-              </g>
-              <g id="label-31">
-                <text text-anchor="start" x="217" y="424">
-                  Фрунзенская
-                </text>
-              </g>
-              <g id="label-32">
-                <text text-anchor="start" x="217" y="444">
-                  Московские ворота
-                </text>
-              </g>
-              <g id="label-33">
-                <text text-anchor="start" x="217" y="464">
-                  Электросила
-                </text>
-              </g>
-              <g id="label-34">
-                <text text-anchor="start" x="217" y="484">
-                  Парк Победы
-                </text>
-              </g>
-              <g id="label-35">
-                <text text-anchor="start" x="217" y="504">
-                  Московская
-                </text>
-              </g>
-              <g id="label-36">
-                <text text-anchor="start" x="217" y="524">
-                  Звёздная
-                </text>
-              </g>
-              <g id="label-37">
-                <text text-anchor="start" x="217" y="544">
-                  Купчино
-                </text>
-              </g>
-              <g id="label-71">
-                <text text-anchor="end" x="117" y="139">
-                  Беговая
-                </text>
-              </g>
-              <g id="label-72">
-                <text text-anchor="end" x="117" y="159">
-                  Новокрестовская
-                </text>
-              </g>
-              <g id="label-38">
-                <text text-anchor="end" x="117" y="179">
-                  Приморская
-                </text>
-              </g>
-              <g id="label-39">
-                <text text-anchor="end" x="117" y="199">
-                  Василеостровская
-                </text>
-              </g>
-              <g id="label-40">
-                <text text-anchor="start" x="217" y="224">
-                  Гостиный двор
-                </text>
-              </g>
-              <g id="label-41">
-                <text text-anchor="start" x="387" y="224">
-                  Маяковская
-                </text>
-              </g>
-              <g id="label-42">
-                <text text-anchor="start" x="567" y="279">
-                  Площадь Александра Невского - 1
-                </text>
-              </g>
-              <g id="label-43">
-                <text text-anchor="end" x="549" y="329">
-                  Елизаровская
-                </text>
-              </g>
-              <g id="label-44">
-                <text text-anchor="end" x="549" y="349">
-                  Ломоносовская
-                </text>
-              </g>
-              <g id="label-45">
-                <text text-anchor="end" x="549" y="369">
-                  Пролетарская
-                </text>
-              </g>
-              <g id="label-46">
-                <text text-anchor="end" x="549" y="389">
-                  Обухово
-                </text>
-              </g>
-              <g id="label-47">
-                <text text-anchor="end" x="549" y="409">
-                  Рыбацкое
-                </text>
-              </g>
-              <g id="label-48">
-                <text text-anchor="start" x="217" y="269">
-                  Спасская
-                </text>
-              </g>
-              <g id="label-49">
-                <text text-anchor="start" x="342" y="269">
-                  Достоевская
-                </text>
-              </g>
-              <g id="label-50">
-                <text text-anchor="start" x="447" y="269">
-                  <tspan dy="0" x="447">
-                    Лиговский
-                  </tspan>
-                  <tspan dy="13" x="447">
-                    проспект
-                  </tspan>
-                </text>
-              </g>
-              <g id="label-51">
-                <text text-anchor="start" x="567" y="294">
-                  Площадь Александра Невского - 2
-                </text>
-              </g>
-              <g id="label-52">
-                <text text-anchor="start" x="607" y="349">
-                  Новочеркасская
-                </text>
-              </g>
-              <g id="label-53">
-                <text text-anchor="start" x="607" y="369">
-                  Ладожская
-                </text>
-              </g>
-              <g id="label-54">
-                <text text-anchor="start" x="607" y="389">
-                  Проспект Большевиков
-                </text>
-              </g>
-              <g id="label-55">
-                <text text-anchor="start" x="607" y="409">
-                  Улица Дыбенко
-                </text>
-              </g>
-              <g id="label-56">
-                <text text-anchor="end" x="159" y="19">
-                  Комендантский проспект
-                </text>
-              </g>
-              <g id="label-57">
-                <text text-anchor="end" x="159" y="39">
-                  Старая Деревня
-                </text>
-              </g>
-              <g id="label-58">
-                <text text-anchor="end" x="159" y="59">
-                  Крестовский остров
-                </text>
-              </g>
-              <g id="label-59">
-                <text text-anchor="end" x="159" y="79">
-                  Чкаловская
-                </text>
-              </g>
-              <g id="label-60">
-                <text text-anchor="end" x="159" y="99">
-                  Спортивная
-                </text>
-              </g>
-              <g id="label-65">
-                <text text-anchor="end" x="159" y="244">
-                  Адмиралтейская
-                </text>
-              </g>
-              <g id="label-61">
-                <text text-anchor="end" x="199" y="284">
-                  Садовая
-                </text>
-              </g>
-              <g id="label-62">
-                <text text-anchor="start" x="272" y="339">
-                  Звенигородская
-                </text>
-              </g>
-              <g id="label-64">
-                <text text-anchor="start" x="302" y="369">
-                  Обводный канал
-                </text>
-              </g>
-              <g id="label-63">
-                <text text-anchor="start" x="322" y="389">
-                  Волковская
-                </text>
-              </g>
-              <g id="label-66">
-                <text text-anchor="start" x="342" y="409">
-                  Бухарестская
-                </text>
-              </g>
-              <g id="label-67">
-                <text text-anchor="start" x="362" y="429">
-                  Международная
-                </text>
-              </g>
-            </g>
-          </g>
-          <g id="highlight-layer">
-            <g fill="none" id="highlight-layer-links" stroke-width="8"></g>
-            <g fill="rgba(255,255,255,0.6)" id="highlight-layer-transfers" stroke="#000" stroke-width="2"></g>
-            <g id="highlight-layer-stations" stroke="#000" stroke-opacity="0.5" stroke-width="1"></g>
-            <g fill="#000" font-family="arial,sans-serif" font-size="13" id="highlight-layer-labels"></g>
-          </g>
-        </g></svg>
+      <div ref="metroMap" v-html="svg"></div>
     </div>
     <div class="map--zoom">
       <button @click="mapZoom('in')" :disabled="stepZoom == 3">+</button>
       <button @click="mapZoom('out')" :disabled="stepZoom == 0">-</button>
     </div>
+    <div class="map--id-stations" v-if="idStations.length">
+      <h2>Выбрано станций: {{ idStations.length }}</h2>
+      <ul>
+        <li v-for="item in idStations" :key="item">
+          {{ item }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
+import MetroMap from './../utils/MetroMap'
+
 export default {
   name: 'Map',
-  mounted() {
-    this.$refs.svgMap.querySelector('#label-1').addEventListener("click",(el, f, g , h) => {
-      this.$refs.svgMap.querySelector('#scheme-layer').style.cssText = 'opacity: 0.2;';
+  mounted () {
+    const metroMap = new MetroMap({
+      selector: this.$refs.metroMap.querySelector('svg'),
+      stations: this.stations
     })
+
+    // выбор элемента
+    metroMap.$el.querySelector('#scheme-layer-labels').addEventListener('click', (event) => {
+      let idLabel = event.target.parentElement.getAttribute('id').split('-')[1]
+      let idStation = metroMap.findLabel(idLabel)
+      metroMap.addSelectStations(idStation)
+
+      this.stationsSelect(metroMap.selectStations)
+    })
+
+    metroMap.$el.querySelector('#scheme-layer-links').addEventListener('click', (event) => {
+      let idLink = event.target.getAttribute('id').split('-')[1]
+      let selectLink = metroMap.findlink(idLink)
+      metroMap.cloneLink(selectLink)
+
+      console.log(metroMap.selectStations)
+    })
+
+    // удаление элемента
+    metroMap.$el.querySelector('#highlight-layer-stations').addEventListener('click', (event) => {
+      let idStation = event.target.getAttribute('id').split('-')[1]
+      metroMap.removeStation(idStation)
+
+      this.stationsSelect(metroMap.selectStations)
+    })
+
+    metroMap.$el.querySelector('#highlight-layer-labels').addEventListener('click', (event) => {
+      let idLabel = event.target.parentElement.getAttribute('id').split('-')[1]
+      let idStation = metroMap.findLabel(idLabel)
+      metroMap.removeStation(idStation)
+
+      this.stationsSelect(metroMap.selectStations)
+    })
+
+    metroMap.$el.querySelector('#highlight-layer-links').addEventListener('click', (event) => {
+      let idLink = event.target.getAttribute('id').split('-')[1]
+      metroMap.removeLink(idLink)
+
+      this.stationsSelect(metroMap.selectStations)
+    })
+
+    /* this.$refs.svgMap.querySelector('#label-1').addEventListener('click', (el, f, g, h) => {
+      this.$refs.svgMap.querySelector('#scheme-layer').style.cssText = 'opacity: 0.2;'
+    }) */
   },
   methods: {
+    stationsSelect (val) {
+      this.idStations = val
+    },
     mapDown (event) {
       let posX =
         event.touches === undefined ? event.clientX : event.touches[0].clientX
@@ -575,7 +105,7 @@ export default {
 
       this.positionMap = [posX - 400, posY - 400]
 
-      //console.log(event, this.positionMap)
+      // console.log(event, this.positionMap)
     },
     mapUp (event) {
       document.removeEventListener('mousemove', this.mapMove)
@@ -602,6 +132,7 @@ export default {
   },
   data () {
     return {
+      idStations: [],
       stepZoom: 0,
       positionMap: [300, 0],
       'svg': '<?xml version="1.0" encoding="utf-8"?> <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="780px" height="555px"><g id="transform-wrapper" transform="scale(1 1)"><g id="scheme-layer"><g id="scheme-layer-background"><rect x="0" y="0" width="780" height="555" fill="#fff" stroke="none"/></g><g id="scheme-layer-links" fill="none" stroke-width="8"><path id="link-1002" d="M378,15L378,35" stroke="#EF1E25"/><path id="link-2003" d="M378,35L378,55" stroke="#EF1E25"/><path id="link-3004" d="M378,55L378,75" stroke="#EF1E25"/><path id="link-4005" d="M378,75L378,95" stroke="#EF1E25"/><path id="link-5006" d="M378,95L378,115" stroke="#EF1E25"/><path id="link-6007" d="M378,115L378,135" stroke="#EF1E25"/><path id="link-7008" d="M378,135L378,155" stroke="#EF1E25"/><path id="link-8009" d="M378,155L378,175" stroke="#EF1E25"/><path id="link-9010" d="M378,175L378,205" stroke="#EF1E25"/><path id="link-10011" d="M378,205L333,250" stroke="#EF1E25"/><path id="link-11012" d="M333,250L263,320" stroke="#EF1E25"/><path id="link-12013" d="M263,320L208,375" stroke="#EF1E25"/><path id="link-13014" d="M208,375L168,415L168,440" stroke="#EF1E25"/><path id="link-14015" d="M168,440L168,460" stroke="#EF1E25"/><path id="link-15016" d="M168,460L168,480" stroke="#EF1E25"/><path id="link-16017" d="M168,480L168,500" stroke="#EF1E25"/><path id="link-17018" d="M168,500L168,520" stroke="#EF1E25"/><path id="link-18019" d="M168,520L168,540" stroke="#EF1E25"/><path id="link-20021" d="M208,15L208,35" stroke="#019EE0"/><path id="link-21022" d="M208,35L208,55" stroke="#019EE0"/><path id="link-22023" d="M208,55L208,75" stroke="#019EE0"/><path id="link-23024" d="M208,75L208,95" stroke="#019EE0"/><path id="link-24025" d="M208,95L208,115" stroke="#019EE0"/><path id="link-25026" d="M208,115L208,135" stroke="#019EE0"/><path id="link-26027" d="M208,135L208,155" stroke="#019EE0"/><path id="link-27028" d="M208,155L208,205" stroke="#019EE0"/><path id="link-28029" d="M208,205L208,250" stroke="#019EE0"/><path id="link-29030" d="M208,250L208,390" stroke="#019EE0"/><path id="link-30031" d="M208,390L208,420" stroke="#019EE0"/><path id="link-31032" d="M208,420L208,440" stroke="#019EE0"/><path id="link-32033" d="M208,440L208,460" stroke="#019EE0"/><path id="link-33034" d="M208,460L208,480" stroke="#019EE0"/><path id="link-34035" d="M208,480L208,500" stroke="#019EE0"/><path id="link-35036" d="M208,500L208,520" stroke="#019EE0"/><path id="link-36037" d="M208,520L208,540" stroke="#019EE0"/><path id="link-71072" d="M126,135L126,155" stroke="#029A55"/><path id="link-72038" d="M126,155L126,175" stroke="#029A55"/><path id="link-38039" d="M126,175L126,195" stroke="#029A55"/><path id="link-39040" d="M126,195L126,200L146,220L208,220" stroke="#029A55"/><path id="link-40041" d="M208,220L378,220" stroke="#029A55"/><path id="link-41042" d="M378,220L543,220L558,235L558,275" stroke="#029A55"/><path id="link-42043" d="M558,275L558,325" stroke="#029A55"/><path id="link-43044" d="M558,325L558,345" stroke="#029A55"/><path id="link-44045" d="M558,345L558,365" stroke="#029A55"/><path id="link-45046" d="M558,365L558,385" stroke="#029A55"/><path id="link-46047" d="M558,385L558,405" stroke="#029A55"/><path id="link-48049" d="M208,265L333,265" stroke="#FBAA33"/><path id="link-49050" d="M333,265L438,265" stroke="#FBAA33"/><path id="link-50051" d="M438,265L533,265L558,290" stroke="#FBAA33"/><path id="link-51052" d="M558,290L598,330L598,345" stroke="#FBAA33"/><path id="link-52053" d="M598,345L598,365" stroke="#FBAA33"/><path id="link-53054" d="M598,365L598,385" stroke="#FBAA33"/><path id="link-54055" d="M598,385L598,405" stroke="#FBAA33"/><path id="link-56057" d="M168,15L168,35" stroke="#B61D8E"/><path id="link-57058" d="M168,35L168,55" stroke="#B61D8E"/><path id="link-58059" d="M168,55L168,75" stroke="#B61D8E"/><path id="link-59060" d="M168,75L168,95" stroke="#B61D8E"/><path id="link-60065" d="M168,95L168,240" stroke="#B61D8E"/><path id="link-65061" d="M168,240L208,280" stroke="#B61D8E"/><path id="link-61062" d="M208,280L263,335" stroke="#B61D8E"/><path id="link-62064" d="M263,335L293,365" stroke="#B61D8E"/><path id="link-64063" d="M293,365L313,385" stroke="#B61D8E"/><path id="link-63066" d="M313,385L333,405" stroke="#B61D8E"/><path id="link-66067" d="M333,405L353,425" stroke="#B61D8E"/></g><g id="scheme-layer-transfers" fill="rgba(255,255,255,0.6)" stroke="#000" stroke-width="2"><path id="transfer-61048029" d="M215,250L215,280A7 7 0 0 1 201 280L201,250A7 7 0 0 1 215 250"/><path id="transfer-62012" d="M270,320L270,335A7 7 0 0 1 256 335L256,320A7 7 0 0 1 270 320"/><path id="transfer-51042" d="M565,275L565,290A7 7 0 0 1 551 290L551,275A7 7 0 0 1 565 275"/><path id="transfer-49011" d="M340,250L340,265A7 7 0 0 1 326 265L326,250A7 7 0 0 1 340 250"/><path id="transfer-40028" d="M215,205L215,220A7 7 0 0 1 201 220L201,205A7 7 0 0 1 215 205"/><path id="transfer-41010" d="M385,205L385,220A7 7 0 0 1 371 220L371,205A7 7 0 0 1 385 205"/><path id="transfer-30013" d="M215,375L215,390A7 7 0 0 1 201 390L201,375A7 7 0 0 1 215 375"/></g><g id="scheme-layer-stations" stroke="#000" stroke-width="1" stroke-opacity="0.5"><circle id="station-314" cx="378" cy="15" r="5" fill="#EF1E25"/><circle id="station-315" cx="378" cy="35" r="5" fill="#EF1E25"/><circle id="station-316" cx="378" cy="55" r="5" fill="#EF1E25"/><circle id="station-317" cx="378" cy="75" r="5" fill="#EF1E25"/><circle id="station-318" cx="378" cy="95" r="5" fill="#EF1E25"/><circle id="station-319" cx="378" cy="115" r="5" fill="#EF1E25"/><circle id="station-320" cx="378" cy="135" r="5" fill="#EF1E25"/><circle id="station-321" cx="378" cy="155" r="5" fill="#EF1E25"/><circle id="station-322" cx="378" cy="175" r="5" fill="#EF1E25"/><circle id="station-323" stroke="#fff" cx="378" cy="205" r="5" fill="#EF1E25"/><circle id="station-324" stroke="#fff" cx="333" cy="250" r="5" fill="#EF1E25"/><circle id="station-325" stroke="#fff" cx="263" cy="320" r="5" fill="#EF1E25"/><circle id="station-326" stroke="#fff" cx="208" cy="375" r="5" fill="#EF1E25"/><circle id="station-327" cx="168" cy="440" r="5" fill="#EF1E25"/><circle id="station-328" cx="168" cy="460" r="5" fill="#EF1E25"/><circle id="station-329" cx="168" cy="480" r="5" fill="#EF1E25"/><circle id="station-330" cx="168" cy="500" r="5" fill="#EF1E25"/><circle id="station-331" cx="168" cy="520" r="5" fill="#EF1E25"/><circle id="station-332" cx="168" cy="540" r="5" fill="#EF1E25"/><circle id="station-333" cx="208" cy="15" r="5" fill="#019EE0"/><circle id="station-334" cx="208" cy="35" r="5" fill="#019EE0"/><circle id="station-335" cx="208" cy="55" r="5" fill="#019EE0"/><circle id="station-336" cx="208" cy="75" r="5" fill="#019EE0"/><circle id="station-337" cx="208" cy="95" r="5" fill="#019EE0"/><circle id="station-338" cx="208" cy="115" r="5" fill="#019EE0"/><circle id="station-339" cx="208" cy="135" r="5" fill="#019EE0"/><circle id="station-340" cx="208" cy="155" r="5" fill="#019EE0"/><circle id="station-341" stroke="#fff" cx="208" cy="205" r="5" fill="#019EE0"/><circle id="station-342" stroke="#fff" cx="208" cy="250" r="5" fill="#019EE0"/><circle id="station-343" stroke="#fff" cx="208" cy="390" r="5" fill="#019EE0"/><circle id="station-344" cx="208" cy="420" r="5" fill="#019EE0"/><circle id="station-345" cx="208" cy="440" r="5" fill="#019EE0"/><circle id="station-346" cx="208" cy="460" r="5" fill="#019EE0"/><circle id="station-347" cx="208" cy="480" r="5" fill="#019EE0"/><circle id="station-348" cx="208" cy="500" r="5" fill="#019EE0"/><circle id="station-349" cx="208" cy="520" r="5" fill="#019EE0"/><circle id="station-350" cx="208" cy="540" r="5" fill="#019EE0"/><circle id="station-449" cx="126" cy="135" r="5" fill="#029A55"/><circle id="station-450" cx="126" cy="155" r="5" fill="#029A55"/><circle id="station-351" cx="126" cy="175" r="5" fill="#029A55"/><circle id="station-352" cx="126" cy="195" r="5" fill="#029A55"/><circle id="station-353" stroke="#fff" cx="208" cy="220" r="5" fill="#029A55"/><circle id="station-354" stroke="#fff" cx="378" cy="220" r="5" fill="#029A55"/><circle id="station-355" stroke="#fff" cx="558" cy="275" r="5" fill="#029A55"/><circle id="station-356" cx="558" cy="325" r="5" fill="#029A55"/><circle id="station-357" cx="558" cy="345" r="5" fill="#029A55"/><circle id="station-358" cx="558" cy="365" r="5" fill="#029A55"/><circle id="station-359" cx="558" cy="385" r="5" fill="#029A55"/><circle id="station-360" cx="558" cy="405" r="5" fill="#029A55"/><circle id="station-361" stroke="#fff" cx="208" cy="265" r="5" fill="#FBAA33"/><circle id="station-362" stroke="#fff" cx="333" cy="265" r="5" fill="#FBAA33"/><circle id="station-363" cx="438" cy="265" r="5" fill="#FBAA33"/><circle id="station-364" stroke="#fff" cx="558" cy="290" r="5" fill="#FBAA33"/><circle id="station-365" cx="598" cy="345" r="5" fill="#FBAA33"/><circle id="station-366" cx="598" cy="365" r="5" fill="#FBAA33"/><circle id="station-367" cx="598" cy="385" r="5" fill="#FBAA33"/><circle id="station-368" cx="598" cy="405" r="5" fill="#FBAA33"/><circle id="station-369" cx="168" cy="15" r="5" fill="#B61D8E"/><circle id="station-370" cx="168" cy="35" r="5" fill="#B61D8E"/><circle id="station-371" cx="168" cy="55" r="5" fill="#B61D8E"/><circle id="station-372" cx="168" cy="75" r="5" fill="#B61D8E"/><circle id="station-373" cx="168" cy="95" r="5" fill="#B61D8E"/><circle id="station-374" cx="168" cy="240" r="5" fill="#B61D8E"/><circle id="station-375" stroke="#fff" cx="208" cy="280" r="5" fill="#B61D8E"/><circle id="station-376" stroke="#fff" cx="263" cy="335" r="5" fill="#B61D8E"/><circle id="station-377" cx="293" cy="365" r="5" fill="#B61D8E"/><circle id="station-378" cx="313" cy="385" r="5" fill="#B61D8E"/><circle id="station-379" cx="333" cy="405" r="5" fill="#B61D8E"/><circle id="station-380" cx="353" cy="425" r="5" fill="#B61D8E"/></g><g id="scheme-layer-labels" fill="#000" font-size="13" font-family="arial,sans-serif"><g id="label-1"><text x="387" y="19" text-anchor="start">Девяткино</text></g><g id="label-2"><text x="387" y="39" text-anchor="start">Гражданский проспект</text></g><g id="label-3"><text x="387" y="59" text-anchor="start" fill="#999">Академическая</text></g><g id="label-4"><text x="387" y="79" text-anchor="start">Политехническая</text></g><g id="label-5"><text x="387" y="99" text-anchor="start">Площадь Мужества</text></g><g id="label-6"><text x="387" y="119" text-anchor="start">Лесная</text></g><g id="label-7"><text x="387" y="139" text-anchor="start">Выборгская</text></g><g id="label-8"><text x="387" y="159" text-anchor="start">Площадь Ленина</text></g><g id="label-9"><text x="387" y="179" text-anchor="start">Чернышевская</text></g><g id="label-10"><text x="387" y="209" text-anchor="start">Площадь Восстания</text></g><g id="label-11"><text x="342" y="254" text-anchor="start">Владимирская</text></g><g id="label-12"><text x="272" y="324" text-anchor="start">Пушкинская</text></g><g id="label-13"><text x="199" y="379" text-anchor="end">Технологический институт - 1</text></g><g id="label-14"><text x="159" y="444" text-anchor="end">Балтийская</text></g><g id="label-15"><text x="159" y="464" text-anchor="end">Нарвская</text></g><g id="label-16"><text x="159" y="484" text-anchor="end">Кировский завод</text></g><g id="label-17"><text x="159" y="504" text-anchor="end">Автово</text></g><g id="label-18"><text x="159" y="524" text-anchor="end">Ленинский проспект</text></g><g id="label-19"><text x="159" y="544" text-anchor="end">Проспект Ветеранов</text></g><g id="label-20"><text x="217" y="19" text-anchor="start">Парнас</text></g><g id="label-21"><text x="217" y="39" text-anchor="start">Проспект Просвещения</text></g><g id="label-22"><text x="217" y="59" text-anchor="start">Озерки</text></g><g id="label-23"><text x="217" y="79" text-anchor="start">Удельная</text></g><g id="label-24"><text x="217" y="99" text-anchor="start">Пионерская</text></g><g id="label-25"><text x="217" y="119" text-anchor="start">Чёрная речка</text></g><g id="label-26"><text x="217" y="139" text-anchor="start">Петроградская</text></g><g id="label-27"><text x="217" y="159" text-anchor="start">Горьковская</text></g><g id="label-28"><text x="217" y="209" text-anchor="start">Невский проспект</text></g><g id="label-29"><text x="218" y="241" text-anchor="start"><tspan x="218" dy="0">Сенная</tspan><tspan x="218" dy="13">площадь</tspan></text></g><g id="label-30"><text x="199" y="394" text-anchor="end">Технологический институт - 2</text></g><g id="label-31"><text x="217" y="424" text-anchor="start">Фрунзенская</text></g><g id="label-32"><text x="217" y="444" text-anchor="start">Московские ворота</text></g><g id="label-33"><text x="217" y="464" text-anchor="start">Электросила</text></g><g id="label-34"><text x="217" y="484" text-anchor="start">Парк Победы</text></g><g id="label-35"><text x="217" y="504" text-anchor="start">Московская</text></g><g id="label-36"><text x="217" y="524" text-anchor="start">Звёздная</text></g><g id="label-37"><text x="217" y="544" text-anchor="start">Купчино</text></g><g id="label-71"><text x="117" y="139" text-anchor="end">Беговая</text></g><g id="label-72"><text x="117" y="159" text-anchor="end">Новокрестовская</text></g><g id="label-38"><text x="117" y="179" text-anchor="end">Приморская</text></g><g id="label-39"><text x="117" y="199" text-anchor="end">Василеостровская</text></g><g id="label-40"><text x="217" y="224" text-anchor="start">Гостиный двор</text></g><g id="label-41"><text x="387" y="224" text-anchor="start">Маяковская</text></g><g id="label-42"><text x="567" y="279" text-anchor="start">Площадь Александра Невского - 1</text></g><g id="label-43"><text x="549" y="329" text-anchor="end">Елизаровская</text></g><g id="label-44"><text x="549" y="349" text-anchor="end">Ломоносовская</text></g><g id="label-45"><text x="549" y="369" text-anchor="end">Пролетарская</text></g><g id="label-46"><text x="549" y="389" text-anchor="end">Обухово</text></g><g id="label-47"><text x="549" y="409" text-anchor="end">Рыбацкое</text></g><g id="label-48"><text x="217" y="269" text-anchor="start">Спасская</text></g><g id="label-49"><text x="342" y="269" text-anchor="start">Достоевская</text></g><g id="label-50"><text x="447" y="269" text-anchor="start"><tspan x="447" dy="0">Лиговский</tspan><tspan x="447" dy="13">проспект</tspan></text></g><g id="label-51"><text x="567" y="294" text-anchor="start">Площадь Александра Невского - 2</text></g><g id="label-52"><text x="607" y="349" text-anchor="start">Новочеркасская</text></g><g id="label-53"><text x="607" y="369" text-anchor="start">Ладожская</text></g><g id="label-54"><text x="607" y="389" text-anchor="start">Проспект Большевиков</text></g><g id="label-55"><text x="607" y="409" text-anchor="start">Улица Дыбенко</text></g><g id="label-56"><text x="159" y="19" text-anchor="end">Комендантский проспект</text></g><g id="label-57"><text x="159" y="39" text-anchor="end">Старая Деревня</text></g><g id="label-58"><text x="159" y="59" text-anchor="end">Крестовский остров</text></g><g id="label-59"><text x="159" y="79" text-anchor="end">Чкаловская</text></g><g id="label-60"><text x="159" y="99" text-anchor="end">Спортивная</text></g><g id="label-65"><text x="159" y="244" text-anchor="end">Адмиралтейская</text></g><g id="label-61"><text x="199" y="284" text-anchor="end">Садовая</text></g><g id="label-62"><text x="272" y="339" text-anchor="start">Звенигородская</text></g><g id="label-64"><text x="302" y="369" text-anchor="start">Обводный канал</text></g><g id="label-63"><text x="322" y="389" text-anchor="start">Волковская</text></g><g id="label-66"><text x="342" y="409" text-anchor="start">Бухарестская</text></g><g id="label-67"><text x="362" y="429" text-anchor="start">Международная</text></g></g></g><g id="highlight-layer"><g id="highlight-layer-links" fill="none" stroke-width="8"/><g id="highlight-layer-transfers" fill="rgba(255,255,255,0.6)" stroke="#000" stroke-width="2"/><g id="highlight-layer-stations" stroke="#000" stroke-width="1" stroke-opacity="0.5"/><g id="highlight-layer-labels" fill="#000" font-size="13" font-family="arial,sans-serif"/></g></g></svg>',
@@ -2412,6 +1943,35 @@ export default {
       }
       &:disabled {
         background: #f4f4f4;
+      }
+    }
+  }
+  &--id-stations {
+    width: 190px;
+    max-height: 200px;
+    overflow: auto;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    color: #ffffff;
+    font-size: 12px;
+    background-color: rgba(73,139,195,0.5);
+    h2 {
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: normal;
+      margin: 0;
+      position: sticky;
+      top: 0;
+      background: rgba(73,139,195,0.8);
+    }
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      li {
+        padding: 4px 15px;
       }
     }
   }
