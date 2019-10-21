@@ -3,11 +3,11 @@
     <h2>Отметьте станции</h2>
     <div class="metro-map--nav">
       <div>
-        <SearchStation />
-        <SearchLine />
+        <SearchStation v-model="idSearch" />
+        <SearchLine v-model="idLine" />
       </div>
       <div>
-        <span>
+        <span @click="resetStations = !resetStations" v-if="idStations.length">
           очистить все
         </span>
         <button class="apply">
@@ -15,7 +15,7 @@
         </button>
       </div>
     </div>
-    <Map />
+    <Map :idSearch="idSearch" :resetStations="resetStations" v-model="idStations" :idLine="idLine" />
   </div>
 </template>
 
@@ -30,6 +30,14 @@ export default {
     SearchStation,
     SearchLine,
     Map
+  },
+  data () {
+    return {
+      idSearch: '',
+      idLine: '',
+      resetStations: false,
+      idStations: []
+    }
   }
 }
 </script>

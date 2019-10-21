@@ -6,14 +6,14 @@
     <div class="select-line--list" v-if="modal">
       <ul>
         <li
-          v-for="(item, key, index) in lines"
+          v-for="(item, key) in lines"
           :key="key"
           @click="selectLine(key)"
           :class="{'selected': item.selected}"
         >
           <div class="metro-lines" :style="{'background-color': item.color}"></div>
           <div class="metro-lines-name">
-            {{ item.name  }}
+            {{ item.name }}
           </div>
         </li>
       </ul>
@@ -28,6 +28,7 @@ export default {
     selectLine (val) {
       this.lines[val]['selected'] = (!this.lines[val]['selected'])
       this.modal = false
+      this.$emit('input', val);
     }
   },
   data () {

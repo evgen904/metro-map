@@ -20,7 +20,7 @@ export default {
     autoComplete (val) {
       this.resultAutoComplete = []
       if (val.length > 2) {
-        for (var prop in this.stations) {
+        for (let prop in this.stations) {
           if (this.stations[prop]['name'].toLowerCase().indexOf(val.toLowerCase()) > -1) {
             this.resultAutoComplete.push(this.stations[prop])
           }
@@ -28,9 +28,15 @@ export default {
       }
     },
     selectStation (val) {
-      console.log(val)
       this.searchText = ''
       this.resultAutoComplete = []
+
+      for (let item in this.stations) {
+        if (this.stations[item]['labelId'] === val.labelId) {
+          this.$emit('input', item)
+          break
+        }
+      }
     }
   },
   data () {

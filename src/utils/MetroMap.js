@@ -20,13 +20,14 @@ export default class MetroMap {
     )
     let selectLine = Object.values(this.stations).filter(item => item.lineId == this.stations[keyStations[indexLink]].lineId)
 
+
     // список названий станций (текст) #scheme-layer-labels
-    let selectLineIdStations = selectLine.map(item => item.labelId)
+    // let selectLineIdStations = selectLine.map(item => item.labelId)
 
     // список станций #scheme-layer-stations
     let keysSations = []
     for (var prop in this.stations) {
-      if (this.stations[prop]['lineId'] == this.stations[keyStations[indexLink]].lineId) {
+      if (this.stations[prop]['lineId'] === this.stations[keyStations[indexLink]].lineId) {
         keysSations.push(prop)
       }
     }
@@ -47,6 +48,19 @@ export default class MetroMap {
     }
   }
 
+  selectLink(id) {
+    let keysSations = []
+    for (var prop in this.stations) {
+      if (this.stations[prop]['lineId'] === id) {
+        keysSations.push(prop)
+      }
+    }
+    this.selectStations = keysSations;
+    this.opacitySvg();
+
+  }
+
+
   opacitySvg () {
     if (this.selectStations.length) {
       this.$el.querySelector('svg #scheme-layer').style.opacity = '0.2'
@@ -56,7 +70,7 @@ export default class MetroMap {
   }
 
   addSelectStations (id) {
-    let isId = this.selectStations.findIndex(item => item === id)
+    let isId = this.selectStations.findIndex(item => item == id)
     if (isId === -1) {
       this.selectStations.push(id)
     } else {
@@ -83,7 +97,7 @@ export default class MetroMap {
     }
   }
   removeStation (id) {
-    let isId = this.selectStations.findIndex(item => item === id)
+    let isId = this.selectStations.findIndex(item => item == id)
     this.selectStations.splice(isId, 1)
     this.$el.querySelector(`#highlight-layer-stations #station-${id}`).remove()
     this.$el.querySelector(`#highlight-layer-labels #label-${this.stations[id]['labelId']}`).remove()
@@ -97,7 +111,7 @@ export default class MetroMap {
 
       for (let item of data.links) {
         let link = (this.$el.querySelector(`#scheme-layer-links #link-${item}`)) ? this.$el.querySelector(`#scheme-layer-links #link-${item}`).cloneNode(true) : ''
-        if (link != '') {
+        if (link !== '') {
           this.$el.querySelector('#highlight-layer-links').appendChild(link)
           links.push(item)
         }
@@ -122,7 +136,7 @@ export default class MetroMap {
     let indexLink = -1
 
     for (let i = 0; i < this.selectLinks.length; i++) {
-      if (this.selectLinks[i].links.findIndex(item => item === +id) !== -1) {
+      if (this.selectLinks[i].links.findIndex(item => item == +id) != -1) {
         indexLink = i
         break
       }
@@ -138,5 +152,22 @@ export default class MetroMap {
     }
 
     // this.selectLinks.splice(indexLink, 1);
+  }
+
+  removeAll () {
+    this.selectStations = []
+    this.selectLinks = []
+
+    for (let item of this.$el.querySelector(`#highlight-layer-links`).querySelectorAll('path')) {
+      item.remove()
+    }
+    for (let item of this.$el.querySelector(`#highlight-layer-stations`).querySelectorAll('circle')) {
+      item.remove()
+    }
+    for (let item of this.$el.querySelector(`#highlight-layer-labels`).querySelectorAll('g')) {
+      item.remove()
+    }
+
+    this.opacitySvg()
   }
 }
