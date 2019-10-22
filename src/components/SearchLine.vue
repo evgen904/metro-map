@@ -28,7 +28,7 @@ export default {
     selectLine (val) {
       this.lines[val]['selected'] = (!this.lines[val]['selected'])
       this.modal = false
-      this.$emit('input', val);
+      this.$emit('input', val)
     }
   },
   data () {

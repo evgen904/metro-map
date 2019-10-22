@@ -20,7 +20,6 @@ export default class MetroMap {
     )
     let selectLine = Object.values(this.stations).filter(item => item.lineId == this.stations[keyStations[indexLink]].lineId)
 
-
     // список названий станций (текст) #scheme-layer-labels
     // let selectLineIdStations = selectLine.map(item => item.labelId)
 
@@ -48,18 +47,16 @@ export default class MetroMap {
     }
   }
 
-  selectLink(id) {
+  selectLink (id) {
     let keysSations = []
     for (var prop in this.stations) {
       if (this.stations[prop]['lineId'] === id) {
         keysSations.push(prop)
       }
     }
-    this.selectStations = keysSations;
-    this.opacitySvg();
-
+    this.selectStations = keysSations
+    this.opacitySvg()
   }
-
 
   opacitySvg () {
     if (this.selectStations.length) {
