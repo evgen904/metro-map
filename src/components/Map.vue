@@ -37,7 +37,7 @@ export default {
       type: String
     },
     idLine: {
-      type: String
+      type: Object
     },
     resetStations: {
       type: Boolean
@@ -145,8 +145,11 @@ export default {
       this.stationsSelect(this.metroMap.selectStations)
     },
     idLine (val) {
-      this.metroMap.selectLink(val)
-      this.stationsSelect(this.metroMap.selectStations)
+      this.metroMap.addLinkNew(val);
+
+
+
+
     },
     resetStations () {
       this.metroMap.removeAll()

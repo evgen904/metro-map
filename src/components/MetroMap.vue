@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       idSearch: '',
-      idLine: '',
+      idLine: null,
       resetStations: false,
       idStations: []
     }

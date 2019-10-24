@@ -1,5 +1,5 @@
 <template>
-  <div class="select-line">
+  <div class="select-line" v-click-outside="clickOutside">
     <div class="select-line--btn" @click="modal = !modal">
       выберите линию
     </div>
@@ -25,10 +25,13 @@
 export default {
   name: 'SearchLine',
   methods: {
+    clickOutside() {
+      this.modal = false;
+    },
     selectLine (val) {
       this.lines[val]['selected'] = (!this.lines[val]['selected'])
       this.modal = false
-      this.$emit('input', val)
+      this.$emit('input', {val, selected: this.lines[val]['selected']})
     }
   },
   data () {

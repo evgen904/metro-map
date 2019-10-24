@@ -4,6 +4,21 @@ export default class MetroMap {
     this.stations = options.stations
     this.selectStations = []
     this.selectLinks = []
+    this.selectLinksNew = []
+  }
+
+  addLinkNew (idLine) {
+    let indexLinks = this.selectLinksNew.findIndex(item => item.linkId === idLine.val);
+
+    if (indexLinks != -1) {
+      this.selectLinksNew.splice(indexLinks, 1)
+    } else {
+      let links = Object.values(this.stations).filter(item => item.lineId === idLine.val)
+      this.selectLinksNew.push({
+        linkId: idLine.val,
+        linkIds: links
+      });
+    }
   }
 
   findLabel (id) {
@@ -14,6 +29,7 @@ export default class MetroMap {
   }
 
   findlink (id) {
+
     let keyStations = Object.keys(this.stations)
     let indexLink = Object.values(this.stations).findIndex(
       item => item.linkIds.find(i => i === +id)
