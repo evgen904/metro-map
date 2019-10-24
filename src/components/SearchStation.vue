@@ -1,11 +1,24 @@
 <template>
   <div class="select-station">
     <div class="select-station--input">
-      <input @keyup="autoComplete(searchText)" v-model="searchText" type="text" placeholder="название станции">
+      <input
+        @keyup="autoComplete(searchText)"
+        @keyup.down="onKeyDown"
+        @keyup.up="onKeyUp"
+        @keyup.enter="onKeyEnter"
+        v-model="searchText"
+        type="text"
+        placeholder="название станции"
+      >
     </div>
     <div class="select-station--list" v-if="resultAutoComplete.length">
       <ul v-if="resultAutoComplete.length">
-        <li v-for="(item, index) in resultAutoComplete" :key="index" @click="selectStation(item)">
+        <li
+          v-for="(item, index) in resultAutoComplete"
+          :key="index"
+          @click="selectStation(item)"
+          :class="{'active': index == selected}"
+        >
           {{ item.name }}
         </li>
       </ul>
@@ -17,9 +30,31 @@
 export default {
   name: 'SearchStation',
   methods: {
+    onKeyDown() {
+      if (this.selected === null) {
+        this.selected = 0;
+        return;
+      }
+      const max = this.resultAutoComplete.length
+      this.selected = max <= this.selected + 1 ? 0 : this.selected + 1;
+    },
+    onKeyUp() {
+      if (this.selected === null) {
+        this.selected = 0;
+        return;
+      }
+      const max = this.resultAutoComplete.length
+      this.selected = this.selected == 0 ? max - 1 : this.selected - 1;
+    },
+    onKeyEnter() {
+      if (this.selected === null) return;
+      if (this.resultAutoComplete.length > 0) {
+        this.selectStation(this.resultAutoComplete[this.selected])
+      }
+    },
     autoComplete (val) {
       this.resultAutoComplete = []
-      if (val.length > 2) {
+      if (val.length >= 2) {
         for (let prop in this.stations) {
           if (this.stations[prop]['name'].toLowerCase().indexOf(val.toLowerCase()) > -1) {
             this.resultAutoComplete.push(this.stations[prop])
@@ -41,6 +76,7 @@ export default {
   },
   data () {
     return {
+      selected: null,
       searchText: '',
       resultAutoComplete: [],
       'stations': {
@@ -1125,7 +1161,7 @@ export default {
         width: 100%;
         font-size: 12px;
         padding: 6px 10px;
-        &:hover {
+        &:hover, &.active {
           background-color: #edeceb;
         }
       }
