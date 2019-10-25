@@ -47,9 +47,14 @@ export default {
     // выбор элемента
 
     if (this.metroMap.$el.querySelector('#scheme-layer-stations')) {
+
+
+
+
       this.metroMap.$el.querySelector('#scheme-layer-stations').addEventListener('click', (event) => {
         let idStation = event.target.getAttribute('id').split('-')[1]
-        this.metroMap.addSelectStations(idStation)
+        this.metroMap.addSelectStationsNew(idStation)
+        this.metroMap.opacitySvg();
 
         this.stationsSelect(this.metroMap.selectStations)
       })
@@ -145,11 +150,8 @@ export default {
       this.stationsSelect(this.metroMap.selectStations)
     },
     idLine (val) {
-      this.metroMap.addLinkNew(val);
-
-
-
-
+      this.metroMap.addLinkNew2(val);
+      this.metroMap.opacitySvg();
     },
     resetStations () {
       this.metroMap.removeAll()
@@ -165,9 +167,31 @@ export default {
   },
   computed: {
     metroMap () {
+      let lineIdArray = []
+      for (let prop in this.stations) {
+        lineIdArray.push(this.stations[prop]['lineId'])
+      }
+      let lineIdArraySort = lineIdArray.filter((elem, index, self) => {
+        return index === self.indexOf(elem)
+      })
+
+      let linksNewWr = [];
+      for (let item of lineIdArraySort) {
+        let linksNew = {}
+        for (let prop in this.stations) {
+          if (this.stations[prop]['lineId'] === item) {
+            linksNew[prop] = this.stations[prop];
+          }
+        }
+        linksNewWr.push({
+          linkId: item,
+          stations: linksNew
+        });
+      }
+
       const metroMap = new MetroMap({
         selector: this.$refs.metroMap.querySelector('svg'),
-        stations: this.stations
+        stations: linksNewWr
       })
       return metroMap
     }

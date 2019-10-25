@@ -5,7 +5,117 @@ export default class MetroMap {
     this.selectStations = []
     this.selectLinks = []
     this.selectLinksNew = []
+    this.stationsNew = []
+    this.stationsSelect = []
   }
+
+
+  /* new */
+
+  opacitySvg () {
+    if (this.stationsSelect.length) {
+      this.$el.querySelector('svg #scheme-layer').style.opacity = '0.2'
+    } else {
+      this.$el.querySelector('svg #scheme-layer').style.opacity = '1'
+    }
+  }
+
+  addLinkNew2(data) {
+    // добавление - удаление линий
+    let indexLinks = this.stationsSelect.findIndex(item => item.linkId === data.val);
+    if (indexLinks != -1) {
+      for (let i in this.stationsSelect) {
+        let indexS = this.stations.findIndex(item => item.linkId === this.stationsSelect[i]['linkId']);
+        if (Object.keys(this.stations[indexS]['stations']).length === Object.keys(this.stationsSelect[i]['stations']).length) {
+          this.stationsSelect.splice(indexLinks, 1)
+        } else {
+          this.stationsSelect[i]['stations'] = this.stations[indexS]['stations'];
+        }
+      }
+    } else {
+      let indexLinks2 = this.stations.findIndex(item => item.linkId === data.val);
+      this.stationsSelect.push(this.stations[indexLinks2])
+    }
+    this.cloneStationsNew2(this.stationsSelect)
+  }
+
+  cloneStationsNew2(data) {
+    if (data.length) {
+      for (let item of data) {
+        for (let i in item.stations) {
+          this.cloneStationNew2(i, item.stations[i]['labelId'])
+        }
+      }
+    }
+  }
+
+  cloneStationNew2 (station, label) {
+    let stationId = this.$el.querySelector(`#scheme-layer-stations #station-${station}`).cloneNode(true)
+    let labelId = this.$el.querySelector(`#scheme-layer-labels #label-${label}`).cloneNode(true)
+    if (!this.$el.querySelector(`#highlight-layer-stations #station-${station}`)) {
+      this.$el.querySelector('#highlight-layer-stations').appendChild(stationId)
+    }
+    if (!this.$el.querySelector(`#highlight-layer-labels #label-${label}`)) {
+      this.$el.querySelector('#highlight-layer-labels').appendChild(labelId)
+    }
+  }
+
+  addSelectStationsNew(data) {
+    for (let item of this.stations) {
+      // находим станцую из текущего списка
+      for (let i in item.stations) {
+        if (data === i) {
+          // если метки уже выбраны
+          if (this.stationsSelect.length) {
+            // узнаем станцию добавить к текущей ветке или создать новую ветку
+            let numberLine = item.stations[data]['lineId'];
+            for (let y in this.stationsSelect) {
+              let indexEl = this.stationsSelect.findIndex(item => item.linkId == numberLine)
+              // к текущей
+              if (indexEl !== -1) {
+                this.stationsSelect[indexEl]['stations'][data] = item.stations[data]
+                break;
+              } else {
+                // создаем новый список для станциы
+                this.stationsSelect.push({
+                  linkId: numberLine,
+                  stations: {
+                    [data]: item.stations[data]
+                  }
+                })
+              }
+            }
+          } else {
+            this.stationsSelect.push({
+              linkId: item.stations[data]['lineId'],
+              stations: {
+                [data]: item.stations[data]
+              }
+            })
+          }
+          break;
+        }
+      }
+    }
+
+    this.cloneStationsNew2(this.stationsSelect)
+
+
+
+  }
+
+
+
+  /* new */
+
+
+
+
+
+
+
+
+  /* old */
 
   addLinkNew (idLine) {
     let indexLinks = this.selectLinksNew.findIndex(item => item.linkId === idLine.val);
@@ -13,13 +123,25 @@ export default class MetroMap {
     if (indexLinks != -1) {
       this.selectLinksNew.splice(indexLinks, 1)
     } else {
-      let links = Object.values(this.stations).filter(item => item.lineId === idLine.val)
+      let linksNew = {}
+      for (let prop in this.stations) {
+        if (this.stations[prop]['lineId'] === idLine.val) {
+          linksNew[prop] = this.stations[prop];
+        }
+      }
       this.selectLinksNew.push({
         linkId: idLine.val,
-        linkIds: links
+        stations: linksNew
       });
     }
+
+    for (let item in this.selectLinksNew) {
+      console.log(Object.keys(this.selectLinksNew[item]['stations']).length, this.selectLinksNew[item]['linkId']);
+    }
+
   }
+
+
 
   findLabel (id) {
     let keyStations = Object.keys(this.stations)
@@ -74,13 +196,7 @@ export default class MetroMap {
     this.opacitySvg()
   }
 
-  opacitySvg () {
-    if (this.selectStations.length) {
-      this.$el.querySelector('svg #scheme-layer').style.opacity = '0.2'
-    } else {
-      this.$el.querySelector('svg #scheme-layer').style.opacity = '1'
-    }
-  }
+
 
   addSelectStations (id) {
     let isId = this.selectStations.findIndex(item => item == id)
@@ -89,6 +205,10 @@ export default class MetroMap {
     } else {
       this.selectStations.splice(isId, 1)
     }
+
+
+
+
 
     this.opacitySvg()
     this.cloneStation()
@@ -183,4 +303,14 @@ export default class MetroMap {
 
     this.opacitySvg()
   }
+
+  /* old */
+
+
+
+
+
+
+
+
 }
