@@ -48,31 +48,36 @@ export default {
 
     if (this.metroMap.$el.querySelector('#scheme-layer-stations')) {
 
-
-
-
       this.metroMap.$el.querySelector('#scheme-layer-stations').addEventListener('click', (event) => {
         let idStation = event.target.getAttribute('id').split('-')[1]
         this.metroMap.addSelectStationsNew(idStation)
+        let lineId = this.metroMap.findLineStationsNew(idStation)
+        this.metroMap.selectLineNew(lineId)
         this.metroMap.opacitySvg();
 
-        this.stationsSelect(this.metroMap.selectStations)
+        //this.stationsSelect(this.metroMap.selectStations)
       })
 
       this.metroMap.$el.querySelector('#scheme-layer-labels').addEventListener('click', (event) => {
         let idLabel = event.target.parentElement.getAttribute('id').split('-')[1]
-        let idStation = this.metroMap.findLabel(idLabel)
-        this.metroMap.addSelectStations(idStation)
+        let idStation = this.metroMap.findLabelNew(idLabel)
+        this.metroMap.addSelectStationsNew(idStation.stations)
+        this.metroMap.selectLineNew(idStation.lineId)
+        this.metroMap.opacitySvg();
 
-        this.stationsSelect(this.metroMap.selectStations)
+        //this.stationsSelect(this.metroMap.selectStations)
       })
 
       this.metroMap.$el.querySelector('#scheme-layer-links').addEventListener('click', (event) => {
         let idLink = event.target.getAttribute('id').split('-')[1]
-        let selectLink = this.metroMap.findlink(idLink)
-        this.metroMap.cloneLink(selectLink)
+        let selectLink = this.metroMap.findLineLinksNew(idLink)
 
-        this.stationsSelect(this.metroMap.selectStations)
+
+
+        this.metroMap.selectLineNew(selectLink, 'links')
+        this.metroMap.opacitySvg();
+
+        //this.stationsSelect(this.metroMap.selectStations)
       })
 
       // удаление элемента
@@ -80,7 +85,7 @@ export default {
         let idStation = event.target.getAttribute('id').split('-')[1]
         this.metroMap.removeStation(idStation)
 
-        this.stationsSelect(this.metroMap.selectStations)
+        //this.stationsSelect(this.metroMap.selectStations)
       })
 
       this.metroMap.$el.querySelector('#highlight-layer-labels').addEventListener('click', (event) => {
@@ -88,14 +93,14 @@ export default {
         let idStation = this.metroMap.findLabel(idLabel)
         this.metroMap.removeStation(idStation)
 
-        this.stationsSelect(this.metroMap.selectStations)
+        //this.stationsSelect(this.metroMap.selectStations)
       })
 
       this.metroMap.$el.querySelector('#highlight-layer-links').addEventListener('click', (event) => {
         let idLink = event.target.getAttribute('id').split('-')[1]
         this.metroMap.removeLink(idLink)
 
-        this.stationsSelect(this.metroMap.selectStations)
+        //this.stationsSelect(this.metroMap.selectStations)
       })
     }
   },
@@ -146,16 +151,32 @@ export default {
   },
   watch: {
     idSearch (val) {
-      this.metroMap.addSelectStations(val)
-      this.stationsSelect(this.metroMap.selectStations)
+      this.metroMap.addSelectStationsNew(val)
+      this.metroMap.opacitySvg();
+
+
+
+
+
+
+      //this.stationsSelect(this.metroMap.selectStations)
     },
     idLine (val) {
-      this.metroMap.addLinkNew2(val);
+
+      if (val.selected) {
+        this.metroMap.addLinkNew2(val);
+        let arrayLinks = this.metroMap.findLinksNew(val.val)
+        this.metroMap.cloneLinksNew(arrayLinks)
+
+      } else {
+
+      }
+
       this.metroMap.opacitySvg();
     },
     resetStations () {
       this.metroMap.removeAll()
-      this.stationsSelect(this.metroMap.selectStations)
+      //this.stationsSelect(this.metroMap.selectStations)
     },
     idStations (val) {
       this.$emit('input', val)

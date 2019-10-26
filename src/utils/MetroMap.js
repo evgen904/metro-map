@@ -2,11 +2,9 @@ export default class MetroMap {
   constructor (options) {
     this.$el = options.selector
     this.stations = options.stations
+    this.stationsSelect = []
     this.selectStations = []
     this.selectLinks = []
-    this.selectLinksNew = []
-    this.stationsNew = []
-    this.stationsSelect = []
   }
 
 
@@ -97,12 +95,94 @@ export default class MetroMap {
         }
       }
     }
-
     this.cloneStationsNew2(this.stationsSelect)
-
-
-
   }
+
+  findLabelNew(data) {
+    for (let item in this.stations) {
+      for (let i in this.stations[item]['stations']) {
+        if (this.stations[item]['stations'][i]['labelId'] === +data) {
+          return {
+            stations: i,
+            lineId: this.stations[item]['stations'][i]['lineId']
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  findLineLinksNew(data) {
+    for (let item in this.stations) {
+      for (let i in this.stations[item]['stations']) {
+        for (let y in this.stations[item]['stations'][i]['linkIds']) {
+          if (this.stations[item]['stations'][i]['linkIds'][y] === +data) {
+            return this.stations[item]['stations'][i]['lineId']
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  findLineStationsNew(data) {
+    for (let item in this.stations) {
+      for (let i in this.stations[item]['stations']) {
+        if (i === data) {
+          return this.stations[item]['stations'][i]['lineId']
+          break;
+        }
+      }
+    }
+  }
+
+
+  selectLineNew(data, links) {
+    let indexSelectStations = this.stationsSelect.findIndex(item => item.linkId === data)
+    let indexStations = this.stations.findIndex(item => item.linkId === data)
+
+    if (links === 'links') {
+      console.log('выделяем всю линию');
+      this.addLinkNew2({val:data})
+
+      let arrayLinks = this.findLinksNew(data)
+      this.cloneLinksNew(arrayLinks)
+    } else {
+      if (Object.keys(this.stationsSelect[indexSelectStations]['stations']).length === Object.keys(this.stations[indexStations]['stations']).length) {
+        console.log('выделить линию');
+        let arrayLinks = this.findLinksNew(data)
+        this.cloneLinksNew(arrayLinks)
+      } else if (Object.keys(this.stationsSelect[indexSelectStations]['stations']).length === Object.keys(this.stations[indexStations]['stations']).length-1) {
+        console.log('убрать линию');
+      }
+    }
+  }
+
+  findLinksNew(data) {
+    let indexStationsLinks = this.stations.findIndex(item => item.linkId === data)
+
+    let linksSelect = []
+    for (let item in this.stations[indexStationsLinks]['stations']) {
+      linksSelect.push(this.stations[indexStationsLinks]['stations'][item]['linkIds'])
+    }
+
+    let linksSelectAll = [].concat(...linksSelect).filter((elem, index, self) => {
+      return index === self.indexOf(elem)
+    })
+
+    return linksSelectAll;
+  }
+
+  cloneLinksNew(data) {
+    for (let item of data) {
+      let link = (this.$el.querySelector(`#scheme-layer-links #link-${item}`)) ? this.$el.querySelector(`#scheme-layer-links #link-${item}`).cloneNode(true) : ''
+      if (link !== '') {
+        this.$el.querySelector('#highlight-layer-links').appendChild(link)
+      }
+    }
+  }
+
+
 
 
 
@@ -116,31 +196,6 @@ export default class MetroMap {
 
 
   /* old */
-
-  addLinkNew (idLine) {
-    let indexLinks = this.selectLinksNew.findIndex(item => item.linkId === idLine.val);
-
-    if (indexLinks != -1) {
-      this.selectLinksNew.splice(indexLinks, 1)
-    } else {
-      let linksNew = {}
-      for (let prop in this.stations) {
-        if (this.stations[prop]['lineId'] === idLine.val) {
-          linksNew[prop] = this.stations[prop];
-        }
-      }
-      this.selectLinksNew.push({
-        linkId: idLine.val,
-        stations: linksNew
-      });
-    }
-
-    for (let item in this.selectLinksNew) {
-      console.log(Object.keys(this.selectLinksNew[item]['stations']).length, this.selectLinksNew[item]['linkId']);
-    }
-
-  }
-
 
 
   findLabel (id) {
