@@ -50,8 +50,8 @@ export default {
 
       this.metroMap.$el.querySelector('#scheme-layer-stations').addEventListener('click', (event) => {
         let idStation = event.target.getAttribute('id').split('-')[1]
-        this.metroMap.addSelectStationsNew(idStation)
         let lineId = this.metroMap.findLineStationsNew(idStation)
+        this.metroMap.addSelectStationsNew(idStation)
         this.metroMap.selectLineNew(lineId)
         this.metroMap.opacitySvg();
 
@@ -72,8 +72,6 @@ export default {
         let idLink = event.target.getAttribute('id').split('-')[1]
         let selectLink = this.metroMap.findLineLinksNew(idLink)
 
-
-
         this.metroMap.selectLineNew(selectLink, 'links')
         this.metroMap.opacitySvg();
 
@@ -83,22 +81,31 @@ export default {
       // удаление элемента
       this.metroMap.$el.querySelector('#highlight-layer-stations').addEventListener('click', (event) => {
         let idStation = event.target.getAttribute('id').split('-')[1]
-        this.metroMap.removeStation(idStation)
+        let lineId = this.metroMap.findLineStationsNew(idStation)
+        this.metroMap.removeStationNew(idStation, lineId)
+        this.metroMap.opacitySvg();
 
         //this.stationsSelect(this.metroMap.selectStations)
       })
 
       this.metroMap.$el.querySelector('#highlight-layer-labels').addEventListener('click', (event) => {
         let idLabel = event.target.parentElement.getAttribute('id').split('-')[1]
-        let idStation = this.metroMap.findLabel(idLabel)
-        this.metroMap.removeStation(idStation)
+        let idStation = this.metroMap.findLabelNew(idLabel)
 
-        //this.stationsSelect(this.metroMap.selectStations)
+        this.metroMap.removeStationNew(idStation.stations, idStation.lineId)
+        this.metroMap.opacitySvg();
+
+        //this.stationsSelect(this.metroMap.selectStations)findLabel
       })
 
       this.metroMap.$el.querySelector('#highlight-layer-links').addEventListener('click', (event) => {
         let idLink = event.target.getAttribute('id').split('-')[1]
-        this.metroMap.removeLink(idLink)
+        let selectLink = this.metroMap.findLineLinksNew(idLink)
+
+        let arrayLinks = this.metroMap.findLinksNew(selectLink)
+        this.metroMap.removeLinkNew(arrayLinks, selectLink)
+        this.metroMap.opacitySvg();
+
 
         //this.stationsSelect(this.metroMap.selectStations)
       })
@@ -153,12 +160,6 @@ export default {
     idSearch (val) {
       this.metroMap.addSelectStationsNew(val)
       this.metroMap.opacitySvg();
-
-
-
-
-
-
       //this.stationsSelect(this.metroMap.selectStations)
     },
     idLine (val) {
@@ -167,8 +168,10 @@ export default {
         this.metroMap.addLinkNew2(val);
         let arrayLinks = this.metroMap.findLinksNew(val.val)
         this.metroMap.cloneLinksNew(arrayLinks)
-
       } else {
+
+        let arrayLinks = this.metroMap.findLinksNew(val.val)
+        this.metroMap.removeLinkNew(arrayLinks, val.val)
 
       }
 
