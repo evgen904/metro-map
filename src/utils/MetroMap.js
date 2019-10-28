@@ -187,9 +187,6 @@ export default class MetroMap {
           this.$el.querySelector(`#highlight-layer-labels #label-${this.stationsSelect[item]['stations'][i]['labelId']}`).remove()
 
           delete this.stationsSelect[item]['stations'][i]
-          if (Object.keys(this.stationsSelect[item]['stations']).length === 0) {
-            this.stationsSelect.splice(item, 1)
-          }
 
           if (this.stationsSelect.length) {
             if (Object.keys(this.stationsSelect[item]['stations']).length != lengthStation) {
@@ -200,6 +197,10 @@ export default class MetroMap {
                 }
               }
             }
+          }
+
+          if (Object.keys(this.stationsSelect[item]['stations']).length === 0) {
+            this.stationsSelect.splice(item, 1)
           }
 
           break
@@ -223,18 +224,25 @@ export default class MetroMap {
     this.stationsSelect.splice(indexStationsLinks, 1)
   }
 
-  findSelectStation() {
-    let arrayStations = [];
+  findSelectStation () {
+    let arrayStations = []
+    let arrayLine = []
     for (let item in this.stationsSelect) {
+      let idLine = this.stationsSelect[item]['linkId']
+      let indexStation = this.stations.findIndex(i => i.linkId === idLine)
+
+      if (Object.keys(this.stations[indexStation]['stations']).length === Object.keys(this.stationsSelect[item]['stations']).length) {
+        arrayLine.push(idLine)
+      }
       for (let y in this.stationsSelect[item]['stations']) {
-        arrayStations.push(y);
+        arrayStations.push(y)
       }
     }
-    return arrayStations;
+    return {
+      link: (arrayLine.length) ? arrayLine : [],
+      stations: arrayStations
+    }
   }
-
-
-
 
   removeAll () {
     this.stationsSelect = []

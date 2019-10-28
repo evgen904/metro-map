@@ -25,9 +25,11 @@
 export default {
   name: 'SearchLine',
   props: {
-    reset: {
-      type: Number,
-      default: 0
+    select: {
+      type: Object
+    },
+    lines: {
+      type: Object
     }
   },
   methods: {
@@ -41,39 +43,22 @@ export default {
     }
   },
   watch: {
-    modal(val) {
-      if (this.reset === 0) {
+    modal (val) {
+      if (val) {
         for (let item in this.lines) {
-          console.log(item);
+          this.lines[item]['selected'] = false
+        }
+      }
+      if (this.select !== null && this.select.link.length && val) {
+        for (let item of this.select.link) {
+          this.lines[item]['selected'] = true
         }
       }
     }
   },
   data () {
     return {
-      modal: false,
-      'lines': {
-        '23': {
-          'name': '\u041a\u0438\u0440\u043e\u0432\u0441\u043a\u043e-\u0412\u044b\u0431\u043e\u0440\u0433\u0441\u043a\u0430\u044f',
-          'color': '#EF1E25'
-        },
-        '24': {
-          'name': '\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u043e-\u041f\u0435\u0442\u0440\u043e\u0433\u0440\u0430\u0434\u0441\u043a\u0430\u044f',
-          'color': '#019EE0'
-        },
-        '25': {
-          'name': '\u041d\u0435\u0432\u0441\u043a\u043e-\u0412\u0430\u0441\u0438\u043b\u0435\u043e\u0441\u0442\u0440\u043e\u0432\u0441\u043a\u0430\u044f',
-          'color': '#029A55'
-        },
-        '26': {
-          'name': '\u041f\u0440\u0430\u0432\u043e\u0431\u0435\u0440\u0435\u0436\u043d\u0430\u044f',
-          'color': '#FBAA33'
-        },
-        '27': {
-          'name': '\u0424\u0440\u0443\u043d\u0437\u0435\u043d\u0441\u043a\u043e-\u041f\u0440\u0438\u043c\u043e\u0440\u0441\u043a\u0430\u044f',
-          'color': '#B61D8E'
-        }
-      }
+      modal: false
     }
   }
 }
