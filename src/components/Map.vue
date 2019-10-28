@@ -108,6 +108,8 @@ export default {
 
         // this.stationsSelect(this.metroMap.selectStations)
       })
+
+      this.setupHandlers(this.metroMap.$el)
     }
   },
   methods: {
@@ -153,7 +155,103 @@ export default {
       if (val === 'out' && this.stepZoom !== 0) {
         this.stepZoom--
       }
+    },
+
+    // SVGPan library 1.2.1 --- start
+    setupHandlers (root) {
+      root.addEventListener('mousedown', this.handleMouseDown)
+      root.addEventListener('mouseup', this.handleMouseUp)
+      root.addEventListener('mousemove', this.handleMouseMove)
+
+      if (navigator.userAgent.toLowerCase().indexOf('webkit') >= 0) { root.addEventListener('mousewheel', this.handleMouseWheel, false) } // Chrome/Safari
+      else { root.addEventListener('DOMMouseScroll', this.handleMouseWheel, false) } // Others
+    },
+
+    getEventPoint (evt) {
+      let p = this.metroMap.$el.createSVGPoint()
+      p.x = evt.clientX - this.metroMap.$el.getBoundingClientRect().left
+      p.y = evt.clientY - this.metroMap.$el.getBoundingClientRect().top
+      return p
+    },
+    setCTM (element, matrix) {
+      let s = 'matrix(' + matrix.a + ',' + matrix.b + ',' + matrix.c + ',' + matrix.d + ',' + matrix.e + ',' + matrix.f + ')'
+      element.setAttribute('transform', s)
+    },
+    handleMouseWheel (evt) {
+      if (!this.optionsSvg.enableZoom) { return }
+
+      if (evt.preventDefault) { evt.preventDefault() }
+
+      evt.returnValue = false
+
+      // evt.wheelDelta / 3600; --- Chrome/Safari
+      // evt.detail / -90; --- Mozilla
+      let delta = (evt.wheelDelta) ? evt.wheelDelta / 3600 : evt.detail / -90
+      let z = 1 + delta * 10 // Zoom factor: 0.9/1.1
+      let g = this.metroMap.$el.querySelector('#transform-wrapper')
+      let p = this.getEventPoint(evt)
+      p = p.matrixTransform(g.getCTM().inverse())
+      // Compute new scale matrix in current mouse position
+      let k = this.metroMap.$el.createSVGMatrix().translate(p.x, p.y).scale(z).translate(-p.x, -p.y)
+      this.setCTM(g, g.getCTM().multiply(k))
+      if (typeof (this.optionsSvg.stateTf) === 'undefined') { this.optionsSvg.stateTf = g.getCTM().inverse() }
+
+      this.optionsSvg.stateTf = this.optionsSvg.stateTf.multiply(k.inverse())
+    },
+
+    handleMouseMove (evt) {
+      if (evt.preventDefault) { evt.preventDefault() }
+
+      evt.returnValue = false
+      let g = this.metroMap.$el.querySelector('#transform-wrapper')
+
+      if (this.optionsSvg.state == 'pan' && this.optionsSvg.enablePan) {
+        // Pan mode
+        let p = this.getEventPoint(evt).matrixTransform(this.optionsSvg.stateTf)
+
+        this.setCTM(g, this.optionsSvg.stateTf.inverse().translate(p.x - this.optionsSvg.stateOrigin.x, p.y - this.optionsSvg.stateOrigin.y))
+      } else if (this.optionsSvg.state == 'drag' && this.optionsSvg.enableDrag) {
+        // Drag mode
+        let p = this.getEventPoint(evt).matrixTransform(g.getCTM().inverse())
+
+        this.setCTM(this.optionsSvg.stateTarget, this.metroMap.$el.createSVGMatrix().translate(p.x - this.optionsSvg.stateOrigin.x, p.y - this.optionsSvg.stateOrigin.y).multiply(g.getCTM().inverse()).multiply(this.optionsSvg.stateTarget.getCTM()))
+
+        this.optionsSvg.stateOrigin = p
+      }
+    },
+    handleMouseDown (evt) {
+      if (evt.preventDefault) { evt.preventDefault() }
+
+      evt.returnValue = false
+      let g = this.metroMap.$el.querySelector('#transform-wrapper')
+
+      if (
+        evt.target.tagName == 'svg' ||
+        !this.optionsSvg.enableDrag // Pan anyway when drag is disabled and the user clicked on an element
+      ) {
+        // Pan mode
+        this.optionsSvg.state = 'pan'
+        this.optionsSvg.stateTf = g.getCTM().inverse()
+        this.optionsSvg.stateOrigin = this.getEventPoint(evt).matrixTransform(this.optionsSvg.stateTf)
+      } else {
+        // Drag mode
+        this.optionsSvg.state = 'drag'
+        this.optionsSvg.stateTarget = evt.target
+        this.optionsSvg.stateTf = g.getCTM().inverse()
+        this.optionsSvg.stateOrigin = this.getEventPoint(evt).matrixTransform(this.optionsSvg.stateTf)
+      }
+    },
+    handleMouseUp (evt) {
+      if (evt.preventDefault) { evt.preventDefault() }
+
+      evt.returnValue = false
+      if (this.optionsSvg.state == 'pan' || this.optionsSvg.state == 'drag') {
+        // Quit pan mode
+        this.optionsSvg.state = ''
+      }
     }
+
+    // SVGPan library 1.2.1 --- end
   },
   watch: {
     idSearch (val) {
@@ -223,10 +321,9 @@ export default {
         enableZoom: 1,
         enableDrag: 0,
         state: 'none',
-        svgRoot: null,
-        stateTarget: null,
-        stateOrigin: null,
-        stateTf: null
+        stateTarget: undefined,
+        stateOrigin: undefined,
+        stateTf: undefined
       },
       idStations: [],
       stepZoom: 0,
@@ -2011,13 +2108,15 @@ export default {
     user-select: none;
     position: relative;
     /deep/ svg {
-      transition: all 0.16s ease;
+      width: 100%;
+      height: 100%;
     }
     &-metro {
-      position: absolute;
+      height: 100%;
+      /*position: absolute;
       top: 0;
       left: 0;
-      z-index: 10;
+      z-index: 10;*/
     }
   }
   &--zoom {
