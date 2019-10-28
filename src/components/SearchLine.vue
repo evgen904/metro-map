@@ -25,13 +25,13 @@
 export default {
   name: 'SearchLine',
   methods: {
-    clickOutside() {
-      this.modal = false;
+    clickOutside () {
+      this.modal = false
     },
     selectLine (val) {
       this.lines[val]['selected'] = (!this.lines[val]['selected'])
       this.modal = false
-      this.$emit('input', {val, selected: this.lines[val]['selected']})
+      this.$emit('input', { val, selected: this.lines[val]['selected'] })
     }
   },
   data () {

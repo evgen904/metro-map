@@ -30,24 +30,24 @@
 export default {
   name: 'SearchStation',
   methods: {
-    onKeyDown() {
+    onKeyDown () {
       if (this.selected === null) {
-        this.selected = 0;
-        return;
+        this.selected = 0
+        return
       }
       const max = this.resultAutoComplete.length
-      this.selected = max <= this.selected + 1 ? 0 : this.selected + 1;
+      this.selected = max <= this.selected + 1 ? 0 : this.selected + 1
     },
-    onKeyUp() {
+    onKeyUp () {
       if (this.selected === null) {
-        this.selected = 0;
-        return;
+        this.selected = 0
+        return
       }
       const max = this.resultAutoComplete.length
-      this.selected = this.selected == 0 ? max - 1 : this.selected - 1;
+      this.selected = this.selected == 0 ? max - 1 : this.selected - 1
     },
-    onKeyEnter() {
-      if (this.selected === null) return;
+    onKeyEnter () {
+      if (this.selected === null) return
       if (this.resultAutoComplete.length > 0) {
         this.selectStation(this.resultAutoComplete[this.selected])
       }

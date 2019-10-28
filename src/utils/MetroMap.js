@@ -13,37 +13,37 @@ export default class MetroMap {
     }
   }
 
-  addLinkNew2(data) {
+  addLink (data) {
     // добавление - удаление линий
-    let indexLinks = this.stationsSelect.findIndex(item => item.linkId === data.val);
+    let indexLinks = this.stationsSelect.findIndex(item => item.linkId === data.val)
 
     if (indexLinks != -1) {
-      let indexStation = this.stations.findIndex(item => item.linkId === this.stationsSelect[indexLinks]['linkId']);
+      let indexStation = this.stations.findIndex(item => item.linkId === this.stationsSelect[indexLinks]['linkId'])
 
       if (Object.keys(this.stations[indexStation]['stations']).length === Object.keys(this.stationsSelect[indexLinks]['stations']).length) {
         this.stationsSelect.splice(indexLinks, 1)
       } else {
-        this.stationsSelect[indexLinks]['stations'] = this.stations[indexStation]['stations'];
+        this.stationsSelect[indexLinks]['stations'] = this.stations[indexStation]['stations']
       }
     } else {
-      let indexLinks2 = this.stations.findIndex(item => item.linkId === data.val);
+      let indexLinks2 = this.stations.findIndex(item => item.linkId === data.val)
       let arrayCopy = JSON.parse(JSON.stringify(this.stations[indexLinks2]))
       this.stationsSelect.push(arrayCopy)
     }
-    this.cloneStationsNew2(this.stationsSelect)
+    this.cloneStations(this.stationsSelect)
   }
 
-  cloneStationsNew2(data) {
+  cloneStations (data) {
     if (data.length) {
       for (let item of data) {
         for (let i in item.stations) {
-          this.cloneStationNew2(i, item.stations[i]['labelId'])
+          this.cloneStation(i, item.stations[i]['labelId'])
         }
       }
     }
   }
 
-  cloneStationNew2 (station, label) {
+  cloneStation (station, label) {
     let stationId = this.$el.querySelector(`#scheme-layer-stations #station-${station}`).cloneNode(true)
     let labelId = this.$el.querySelector(`#scheme-layer-labels #label-${label}`).cloneNode(true)
     if (!this.$el.querySelector(`#highlight-layer-stations #station-${station}`)) {
@@ -54,7 +54,7 @@ export default class MetroMap {
     }
   }
 
-  addSelectStationsNew(data) {
+  addSelectStations (data) {
     for (let item of this.stations) {
       // находим станцую из текущего списка
       for (let i in item.stations) {
@@ -62,13 +62,13 @@ export default class MetroMap {
           // если метки уже выбраны
           if (this.stationsSelect.length) {
             // узнаем станцию добавить к текущей ветке или создать новую ветку
-            let numberLine = item.stations[data]['lineId'];
+            let numberLine = item.stations[data]['lineId']
             for (let y in this.stationsSelect) {
               let indexEl = this.stationsSelect.findIndex(item => item.linkId == numberLine)
               // к текущей
               if (indexEl !== -1) {
                 this.stationsSelect[indexEl]['stations'][data] = item.stations[data]
-                break;
+                break
               } else {
                 // создаем новый список для станциы
                 this.stationsSelect.push({
@@ -87,14 +87,14 @@ export default class MetroMap {
               }
             })
           }
-          break;
+          break
         }
       }
     }
-    this.cloneStationsNew2(this.stationsSelect)
+    this.cloneStations(this.stationsSelect)
   }
 
-  findLabelNew(data) {
+  findLabel (data) {
     for (let item in this.stations) {
       for (let i in this.stations[item]['stations']) {
         if (this.stations[item]['stations'][i]['labelId'] === +data) {
@@ -102,60 +102,57 @@ export default class MetroMap {
             stations: i,
             lineId: this.stations[item]['stations'][i]['lineId']
           }
-          break;
+          break
         }
       }
     }
   }
 
-  findLineLinksNew(data) {
+  findLineLinks (data) {
     for (let item in this.stations) {
       for (let i in this.stations[item]['stations']) {
         for (let y in this.stations[item]['stations'][i]['linkIds']) {
           if (this.stations[item]['stations'][i]['linkIds'][y] === +data) {
             return this.stations[item]['stations'][i]['lineId']
-            break;
+            break
           }
         }
       }
     }
   }
 
-  findLineStationsNew(data) {
+  findLineStations (data) {
     for (let item in this.stations) {
       for (let i in this.stations[item]['stations']) {
         if (i === data) {
           return this.stations[item]['stations'][i]['lineId']
-          break;
+          break
         }
       }
     }
   }
 
-
-  selectLineNew(data, links) {
+  selectLine (data, links) {
     let indexSelectStations = this.stationsSelect.findIndex(item => item.linkId === data)
     let indexStations = this.stations.findIndex(item => item.linkId === data)
 
     if (links === 'links') {
-      console.log('выделяем всю линию');
-
-      this.addLinkNew2({val:data})
-      let arrayLinks = this.findLinksNew(data)
-      this.cloneLinksNew(arrayLinks)
-
+      // console.log('выделяем всю линию')
+      this.addLink({ val: data })
+      let arrayLinks = this.findLinks(data)
+      this.cloneLinks(arrayLinks)
     } else {
       if (Object.keys(this.stationsSelect[indexSelectStations]['stations']).length === Object.keys(this.stations[indexStations]['stations']).length) {
-        console.log('выделить линию');
-        let arrayLinks = this.findLinksNew(data)
-        this.cloneLinksNew(arrayLinks)
-      } else if (Object.keys(this.stationsSelect[indexSelectStations]['stations']).length === Object.keys(this.stations[indexStations]['stations']).length-1) {
-        console.log('убрать линию');
+        // console.log('выделить линию')
+        let arrayLinks = this.findLinks(data)
+        this.cloneLinks(arrayLinks)
+      } else if (Object.keys(this.stationsSelect[indexSelectStations]['stations']).length === Object.keys(this.stations[indexStations]['stations']).length - 1) {
+        // console.log('убрать линию')
       }
     }
   }
 
-  findLinksNew(data) {
+  findLinks (data) {
     let indexStationsLinks = this.stations.findIndex(item => item.linkId === data)
 
     let linksSelect = []
@@ -167,10 +164,10 @@ export default class MetroMap {
       return index === self.indexOf(elem)
     })
 
-    return linksSelectAll;
+    return linksSelectAll
   }
 
-  cloneLinksNew(data) {
+  cloneLinks (data) {
     for (let item of data) {
       let link = (this.$el.querySelector(`#scheme-layer-links #link-${item}`)) ? this.$el.querySelector(`#scheme-layer-links #link-${item}`).cloneNode(true) : ''
       if (link !== '') {
@@ -179,10 +176,9 @@ export default class MetroMap {
     }
   }
 
-  removeStationNew(data, lineId) {
-
+  removeStation (data, lineId) {
     let indexStation = this.stations.findIndex(item => item.linkId === lineId)
-    let lengthStation = Object.keys(this.stations[indexStation]['stations']).length;
+    let lengthStation = Object.keys(this.stations[indexStation]['stations']).length
 
     for (let item in this.stationsSelect) {
       for (let i in this.stationsSelect[item]['stations']) {
@@ -197,7 +193,7 @@ export default class MetroMap {
 
           if (this.stationsSelect.length) {
             if (Object.keys(this.stationsSelect[item]['stations']).length != lengthStation) {
-              let arrayLinks = this.findLinksNew(lineId)
+              let arrayLinks = this.findLinks(lineId)
               for (let r of arrayLinks) {
                 if (this.$el.querySelector(`#highlight-layer-links #link-${r}`)) {
                   this.$el.querySelector(`#highlight-layer-links #link-${r}`).remove()
@@ -206,13 +202,13 @@ export default class MetroMap {
             }
           }
 
-          break;
+          break
         }
       }
     }
   }
 
-  removeLinkNew(links, lineId) {
+  removeLink (links, lineId) {
     let indexStationsLinks = this.stationsSelect.findIndex(item => item.linkId === lineId)
 
     for (let item of links) {
@@ -225,11 +221,9 @@ export default class MetroMap {
       this.$el.querySelector(`#highlight-layer-labels #label-${this.stationsSelect[indexStationsLinks]['stations'][item]['labelId']}`).remove()
     }
     this.stationsSelect.splice(indexStationsLinks, 1)
-
   }
 
   removeAll () {
 
   }
-
 }
