@@ -24,6 +24,12 @@
 <script>
 export default {
   name: 'SearchLine',
+  props: {
+    reset: {
+      type: Number,
+      default: 0
+    }
+  },
   methods: {
     clickOutside () {
       this.modal = false
@@ -32,6 +38,15 @@ export default {
       this.lines[val]['selected'] = (!this.lines[val]['selected'])
       this.modal = false
       this.$emit('input', { val, selected: this.lines[val]['selected'] })
+    }
+  },
+  watch: {
+    modal(val) {
+      if (this.reset === 0) {
+        for (let item in this.lines) {
+          console.log(item);
+        }
+      }
     }
   },
   data () {

@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="map--zoom">
-      <button @click="mapZoom('in')" :disabled="stepZoom == 2">+</button>
+      <button @click="mapZoom('in')" :disabled="stepZoom == 4">+</button>
       <button @click="mapZoom('out')" :disabled="stepZoom == 0">-</button>
     </div>
     <div class="map--id-stations" v-if="idStations.length">
@@ -55,7 +55,7 @@ export default {
         this.metroMap.selectLine(lineId)
         this.metroMap.opacitySvg()
 
-        // this.stationsSelect(this.metroMap.selectStations)
+        this.idStations = this.metroMap.findSelectStation();
       })
 
       this.metroMap.$el.querySelector('#scheme-layer-labels').addEventListener('click', (event) => {
@@ -65,7 +65,7 @@ export default {
         this.metroMap.selectLine(idStation.lineId)
         this.metroMap.opacitySvg()
 
-        // this.stationsSelect(this.metroMap.selectStations)
+        this.idStations = this.metroMap.findSelectStation();
       })
 
       this.metroMap.$el.querySelector('#scheme-layer-links').addEventListener('click', (event) => {
@@ -75,7 +75,7 @@ export default {
         this.metroMap.selectLine(selectLink, 'links')
         this.metroMap.opacitySvg()
 
-        // this.stationsSelect(this.metroMap.selectStations)
+        this.idStations = this.metroMap.findSelectStation();
       })
 
       // удаление элемента
@@ -85,7 +85,7 @@ export default {
         this.metroMap.removeStation(idStation, lineId)
         this.metroMap.opacitySvg()
 
-        // this.stationsSelect(this.metroMap.selectStations)
+        this.idStations = this.metroMap.findSelectStation();
       })
 
       this.metroMap.$el.querySelector('#highlight-layer-labels').addEventListener('click', (event) => {
@@ -95,7 +95,7 @@ export default {
         this.metroMap.removeStation(idStation.stations, idStation.lineId)
         this.metroMap.opacitySvg()
 
-        // this.stationsSelect(this.metroMap.selectStations)findLabel
+        this.idStations = this.metroMap.findSelectStation();
       })
 
       this.metroMap.$el.querySelector('#highlight-layer-links').addEventListener('click', (event) => {
@@ -106,16 +106,13 @@ export default {
         this.metroMap.removeLink(arrayLinks, selectLink)
         this.metroMap.opacitySvg()
 
-        // this.stationsSelect(this.metroMap.selectStations)
+        this.idStations = this.metroMap.findSelectStation();
       })
 
       this.setupHandlers(this.metroMap.$el)
     }
   },
   methods: {
-    stationsSelect (val) {
-      this.idStations = val
-    },
     mapDown (event) {
       this.positionMap = [
         event.pageX - this.$refs.metroMap.getBoundingClientRect().left,
@@ -149,7 +146,7 @@ export default {
       }
     },
     mapZoom (val) {
-      if (val === 'in' && this.stepZoom < 2) {
+      if (val === 'in' && this.stepZoom < 4) {
         this.stepZoom++
       }
       if (val === 'out' && this.stepZoom !== 0) {
@@ -187,7 +184,9 @@ export default {
       // evt.wheelDelta / 3600; --- Chrome/Safari
       // evt.detail / -90; --- Mozilla
       let delta = (evt.wheelDelta) ? evt.wheelDelta / 3600 : evt.detail / -90
-      let z = 1 + delta * 10 // Zoom factor: 0.9/1.1
+
+      let z = 1 + delta * 12 // Zoom factor: 0.9/1.1
+
       let g = this.metroMap.$el.querySelector('#transform-wrapper')
       let p = this.getEventPoint(evt)
       p = p.matrixTransform(g.getCTM().inverse())
@@ -195,7 +194,6 @@ export default {
       let k = this.metroMap.$el.createSVGMatrix().translate(p.x, p.y).scale(z).translate(-p.x, -p.y)
       this.setCTM(g, g.getCTM().multiply(k))
       if (typeof (this.optionsSvg.stateTf) === 'undefined') { this.optionsSvg.stateTf = g.getCTM().inverse() }
-
       this.optionsSvg.stateTf = this.optionsSvg.stateTf.multiply(k.inverse())
     },
 
@@ -257,7 +255,7 @@ export default {
     idSearch (val) {
       this.metroMap.addSelectStations(val)
       this.metroMap.opacitySvg()
-      // this.stationsSelect(this.metroMap.selectStations)
+      this.idStations = this.metroMap.findSelectStation();
     },
     idLine (val) {
       if (val.selected) {
@@ -270,18 +268,15 @@ export default {
       }
 
       this.metroMap.opacitySvg()
+      this.idStations = this.metroMap.findSelectStation();
     },
     resetStations () {
       this.metroMap.removeAll()
-      // this.stationsSelect(this.metroMap.selectStations)
+      this.idStations = this.metroMap.findSelectStation();
     },
     idStations (val) {
       this.$emit('input', val)
     },
-    stepZoom (val) {
-      let scaleVal = (val === 0) ? 1 : (val === 1) ? 2 : (val === 2) ? 4 : 0
-      this.metroMap.$el.style.transform = `scale(${scaleVal})`
-    }
   },
   computed: {
     metroMap () {
@@ -319,6 +314,7 @@ export default {
       optionsSvg: {
         enablePan: 1,
         enableZoom: 1,
+        zoom: 0,
         enableDrag: 0,
         state: 'none',
         stateTarget: undefined,

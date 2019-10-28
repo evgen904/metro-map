@@ -223,7 +223,32 @@ export default class MetroMap {
     this.stationsSelect.splice(indexStationsLinks, 1)
   }
 
-  removeAll () {
+  findSelectStation() {
+    let arrayStations = [];
+    for (let item in this.stationsSelect) {
+      for (let y in this.stationsSelect[item]['stations']) {
+        arrayStations.push(y);
+      }
+    }
+    return arrayStations;
+  }
 
+
+
+
+  removeAll () {
+    this.stationsSelect = []
+
+    for (let item of this.$el.querySelector(`#highlight-layer-links`).querySelectorAll('path')) {
+      item.remove()
+    }
+    for (let item of this.$el.querySelector(`#highlight-layer-stations`).querySelectorAll('circle')) {
+      item.remove()
+    }
+    for (let item of this.$el.querySelector(`#highlight-layer-labels`).querySelectorAll('g')) {
+      item.remove()
+    }
+
+    this.opacitySvg()
   }
 }

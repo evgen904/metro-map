@@ -4,7 +4,7 @@
     <div class="metro-map--nav">
       <div>
         <SearchStation v-model="idSearch" />
-        <SearchLine v-model="idLine" />
+        <SearchLine v-model="idLine" :reset="idStations.length" />
       </div>
       <div>
         <span @click="resetStations = !resetStations" v-if="idStations.length">
