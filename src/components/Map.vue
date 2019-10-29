@@ -42,6 +42,9 @@ export default {
     },
     resetStations: {
       type: Boolean
+    },
+    selectStations: {
+      type: Array
     }
   },
   mounted () {
@@ -59,13 +62,21 @@ export default {
       })
 
       this.metroMap.$el.querySelector('#scheme-layer-labels').addEventListener('click', (event) => {
-        let idLabel = event.target.parentElement.getAttribute('id').split('-')[1]
+        let idLabel;
+        for (let item of event.path) {
+          if (item.getAttribute('id') !== null) {
+            if (item.getAttribute('id').split('-')[0] === 'label') {
+              idLabel = item.getAttribute('id').split('-')[1]
+              break;
+            }
+          }
+        }
         let idStation = this.metroMap.findLabel(idLabel)
         this.metroMap.addSelectStations(idStation.stations)
         this.metroMap.selectLine(idStation.lineId)
         this.metroMap.opacitySvg()
-
         this.idStations = this.metroMap.findSelectStation()
+
       })
 
       this.metroMap.$el.querySelector('#scheme-layer-links').addEventListener('click', (event) => {
@@ -89,7 +100,15 @@ export default {
       })
 
       this.metroMap.$el.querySelector('#highlight-layer-labels').addEventListener('click', (event) => {
-        let idLabel = event.target.parentElement.getAttribute('id').split('-')[1]
+        let idLabel;
+        for (let item of event.path) {
+          if (item.getAttribute('id') !== null) {
+            if (item.getAttribute('id').split('-')[0] === 'label') {
+              idLabel = item.getAttribute('id').split('-')[1]
+              break;
+            }
+          }
+        }
         let idStation = this.metroMap.findLabel(idLabel)
 
         this.metroMap.removeStation(idStation.stations, idStation.lineId)
@@ -110,6 +129,22 @@ export default {
       })
 
       this.setupHandlers(this.metroMap.$el)
+
+      if (this.selectStations.length) {
+        for (let item of this.selectStations) {
+          this.metroMap.addSelectStations(String(item))
+          let lineId = this.metroMap.findLineStations(String(item))
+          this.metroMap.selectLine(lineId)
+          this.metroMap.opacitySvg()
+        }
+        this.idStations = this.metroMap.findSelectStation()
+      }
+
+      let posSvgX = (this.metroMap.$el.getBoundingClientRect().width - this.metroMap.$el.querySelector('#transform-wrapper').getBoundingClientRect().width) / 2;
+      let posSvgY = (this.metroMap.$el.getBoundingClientRect().height - this.metroMap.$el.querySelector('#transform-wrapper').getBoundingClientRect().height) / 2;
+      this.metroMap.$el.querySelector('#transform-wrapper').setAttribute('transform', `matrix(1,0,0,1,${posSvgX},${posSvgY})`);
+
+
     }
   },
   methods: {
@@ -176,19 +211,13 @@ export default {
     },
     handleMouseWheel (evt) {
       if (!this.optionsSvg.enableZoom) { return }
-/*
+
       if (evt.deltaY <= -1 && this.optionsSvg.zoom < 5) {
         this.optionsSvg.zoom++
       }
-      if (event.deltaY >= 1 && this.optionsSvg.zoom !== 1) {
+      if (event.deltaY >= 1 && this.optionsSvg.zoom !== 0) {
         this.optionsSvg.zoom--
       }
-
-      if (this.optionsSvg.zoom == 5 || this.optionsSvg.zoom == 0) {
-        return false;
-      }
-
-      console.log(this.optionsSvg.zoom);*/
 
       if (evt.preventDefault) { evt.preventDefault() }
 
@@ -199,14 +228,15 @@ export default {
       let delta = (evt.wheelDelta) ? evt.wheelDelta / 3600 : evt.detail / -90
 
       let z = 1 + delta * 12 // Zoom factor: 0.9/1.1
-
       let g = this.metroMap.$el.querySelector('#transform-wrapper')
       let p = this.getEventPoint(evt)
       p = p.matrixTransform(g.getCTM().inverse())
       // Compute new scale matrix in current mouse position
       let k = this.metroMap.$el.createSVGMatrix().translate(p.x, p.y).scale(z).translate(-p.x, -p.y)
       this.setCTM(g, g.getCTM().multiply(k))
-      if (typeof (this.optionsSvg.stateTf) === 'undefined') { this.optionsSvg.stateTf = g.getCTM().inverse() }
+      if (typeof (this.optionsSvg.stateTf) === 'undefined') {
+        this.optionsSvg.stateTf = g.getCTM().inverse()
+      }
       this.optionsSvg.stateTf = this.optionsSvg.stateTf.multiply(k.inverse())
     },
 
