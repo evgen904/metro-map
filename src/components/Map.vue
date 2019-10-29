@@ -206,8 +206,10 @@ export default {
       return p
     },
     setCTM (element, matrix) {
-      let s = 'matrix(' + matrix.a + ',' + matrix.b + ',' + matrix.c + ',' + matrix.d + ',' + matrix.e + ',' + matrix.f + ')'
-      element.setAttribute('transform', s)
+      if (matrix.a < 4 && matrix.a > 0.64) {
+        let s = 'matrix(' + matrix.a + ',' + matrix.b + ',' + matrix.c + ',' + matrix.d + ',' + matrix.e + ',' + matrix.f + ')'
+        element.setAttribute('transform', s)
+      }
     },
     handleMouseWheel (evt) {
       if (!this.optionsSvg.enableZoom) { return }
@@ -390,6 +392,9 @@ export default {
     /deep/ svg {
       width: 100%;
       height: 100%;
+      #scheme-layer {
+        transition: all 0.3s ease;
+      }
     }
     &-metro {
       height: 100%;
