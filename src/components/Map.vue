@@ -206,7 +206,7 @@ export default {
       return p
     },
     setCTM (element, matrix) {
-      if (matrix.a < 4 && matrix.a > 0.64) {
+      if (matrix.a < 3 && matrix.a > 0.9) {
         let s = 'matrix(' + matrix.a + ',' + matrix.b + ',' + matrix.c + ',' + matrix.d + ',' + matrix.e + ',' + matrix.f + ')'
         element.setAttribute('transform', s)
       }
@@ -227,9 +227,17 @@ export default {
 
       // evt.wheelDelta / 3600; --- Chrome/Safari
       // evt.detail / -90; --- Mozilla
-      let delta = (evt.wheelDelta) ? evt.wheelDelta / 3600 : evt.detail / -90
+      //et delta = (evt.wheelDelta) ? evt.wheelDelta / 3600 : evt.detail / -90
 
-      let z = 1 + delta * 12 // Zoom factor: 0.9/1.1
+      var delta;
+      if (evt.deltaY <= -1) {
+        delta = 0.03;
+      }
+      if (evt.deltaY >= 1) {
+        delta = -0.03;
+      }
+
+      let z = 1 + delta * 3 // Zoom factor: 0.9/1.1
       let g = this.metroMap.$el.querySelector('#transform-wrapper')
       let p = this.getEventPoint(evt)
       p = p.matrixTransform(g.getCTM().inverse())
