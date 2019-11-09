@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "mobile-device-detect": "^0.3.3",
     "vue": "^2.6.10",
+    "vue-localstorage": "^0.6.2",
+    "vue-panzoom": "^1.1.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

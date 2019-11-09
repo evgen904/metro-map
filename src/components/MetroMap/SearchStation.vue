@@ -2,22 +2,22 @@
   <div class="select-station">
     <div class="select-station--input">
       <input
+        v-model="searchText"
+        type="text"
+        placeholder="название станции"
         @keyup="autoComplete(searchText)"
         @keyup.down="onKeyDown"
         @keyup.up="onKeyUp"
         @keyup.enter="onKeyEnter"
-        v-model="searchText"
-        type="text"
-        placeholder="название станции"
-      >
+      />
     </div>
-    <div class="select-station--list" v-if="resultAutoComplete.length">
+    <div v-if="resultAutoComplete.length" class="select-station--list">
       <ul v-if="resultAutoComplete.length">
         <li
           v-for="(item, index) in resultAutoComplete"
           :key="index"
+          :class="{ active: index == selected }"
           @click="selectStation(item)"
-          :class="{'active': index == selected}"
         >
           {{ item.name }}
         </li>
@@ -32,6 +32,13 @@ export default {
   props: {
     stations: {
       type: Object
+    }
+  },
+  data () {
+    return {
+      selected: null,
+      searchText: '',
+      resultAutoComplete: []
     }
   },
   methods: {
@@ -61,7 +68,11 @@ export default {
       this.resultAutoComplete = []
       if (val.length >= 2) {
         for (let prop in this.stations) {
-          if (this.stations[prop]['name'].toLowerCase().indexOf(val.toLowerCase()) > -1) {
+          if (
+            this.stations[prop]['name']
+              .toLowerCase()
+              .indexOf(val.toLowerCase()) > -1
+          ) {
             this.resultAutoComplete.push(this.stations[prop])
           }
         }
@@ -78,67 +89,69 @@ export default {
         }
       }
     }
-  },
-  data () {
-    return {
-      selected: null,
-      searchText: '',
-      resultAutoComplete: []
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.select-station {
-  width: 50%;
-  padding-right: 10px;
-  position: relative;
-  &--input {
-    input[type="text"] {
-      display: block;
-      width: 100%;
-      height: 30px;
-      padding: 0 10px;
-      margin: 0;
-      outline-style: none;
-      font-size: 13px;
+  .select-station {
+    width: 50%;
+    padding-right: 10px;
+    position: relative;
+    &--input {
+      input[type="text"] {
+        display: block;
+        width: 100%;
+        height: 30px;
+        padding: 0 10px;
+        margin: 0;
+        outline-style: none;
+        font-size: 13px;
+        border: 1px solid #d8d8d8;
+        border-radius: 3px;
+        background: #fff;
+        &::-webkit-input-placeholder {
+          color: #a2a2a2;
+        }
+        &:-ms-input-placeholder {
+          color: #a2a2a2;
+        }
+        &::-ms-input-placeholder {
+          color: #a2a2a2;
+        }
+        &::placeholder {
+          color: #a2a2a2;
+        }
+      }
+    }
+    &--list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 10px;
+      z-index: 100;
+      background-color: #fff;
       border: 1px solid #d8d8d8;
       border-radius: 3px;
-      background: #fff;
-      &::-webkit-input-placeholder { color: #a2a2a2; }
-      &:-ms-input-placeholder { color: #a2a2a2; }
-      &::-ms-input-placeholder { color: #a2a2a2; }
-      &::placeholder { color: #a2a2a2; }
-    }
-  }
-  &--list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 10px;
-    z-index: 100;
-    background-color: #fff;
-    border: 1px solid #d8d8d8;
-    border-radius: 3px;
-    overflow: hidden;
-    margin: 2px 0 0;
-    ul {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      li {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        font-size: 12px;
-        padding: 6px 10px;
-        &:hover, &.active {
-          background-color: #edeceb;
+      overflow: hidden;
+      margin: 2px 0 0;
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        li {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          font-size: 13px;
+          padding: 6px 10px;
+          &:hover,
+          &.active {
+            background-color: #edeceb;
+          }
         }
       }
     }
   }
-}
 </style>
