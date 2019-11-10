@@ -17,6 +17,12 @@
       <button @click="mapZoom('in')">+</button>
       <button @click="mapZoom('out')">-</button>
     </div>
+    <div class="map--select" :class="viewPort" v-if="idStations.stations.length">
+      <h2>Выбранные станции</h2>
+      <ul>
+        <li v-for="(item, index) in idStations.stations" :key="index">{{ item }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -475,6 +481,50 @@ export default {
         }
         &:disabled {
           background: #f4f4f4;
+        }
+      }
+    }
+    &--select {
+      width: 200px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 10;
+      overflow: auto;
+      max-height: 300px;
+      background: rgba(35, 145, 187, 0.7);
+      color: #ffffff;
+      h2 {
+        padding: 10px;
+        margin: 0;
+        font-size: 14px;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        background: #2391bb;
+      }
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        font-size: 12px;
+        font-weight: bold;
+        li {
+          padding: 4px 10px;
+        }
+      }
+      &.mobile {
+        width: 90px;
+        max-height: 150px;
+        h2 {
+          font-size: 11px;
+        }
+        ul {
+          li {
+            font-weight: normal;
+            font-size: 11px;
+            padding: 2px 10px;
+          }
         }
       }
     }

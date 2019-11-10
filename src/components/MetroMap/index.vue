@@ -16,9 +16,9 @@
         >
           очистить все
         </span>
-        <button @click="apply" class="apply">
-          Выбрать
-        </button>
+        <!--<button @click="apply" class="apply">-->
+          <!--Выбрать-->
+        <!--</button>-->
       </div>
     </div>
     <Map
@@ -103,10 +103,12 @@ export default {
           align-items: center;
         }
         span {
+          display: inline-block;
           cursor: pointer;
           color: #2d6cb4;
           font-size: 13px;
           margin-left: 20px;
+          padding: 7px 0;
           &:hover {
             color: #f51449;
           }

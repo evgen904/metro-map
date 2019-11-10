@@ -1,9 +1,11 @@
 <template>
   <div id="app" :class="screenSize">
-    <h2>Выберете город</h2>
-    <div>
-      <span @click="showModal('moscow')">Москва</span>
-      <span @click="showModal('spb')">Санкт-петербург</span>
+    <div class="block-metro">
+      <h2>Выберете город</h2>
+      <div class="block-metro--nav">
+        <span @click="showModal('moscow')">Москва</span>
+        <span @click="showModal('spb')">Санкт-петербург</span>
+      </div>
     </div>
     <BaseModal
       ref="modalRef"
@@ -125,6 +127,31 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.block-metro {
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 280px;
+  h2 {
+    padding: 0;
+    margin: 0 0 16px;
+  }
+  &--nav {
+    span {
+      cursor: pointer;
+      margin-right: 14px;
+      color: #0048ea;
+      &:hover {
+        color: #ea0000;
+      }
+    }
+  }
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -137,9 +164,9 @@ body {
     width: 80vw;
     height: 100vh;
     max-height: calc(100vh - 150px);
-    left: 10vw;
-    top: 74px;
-    transform: none;
+    left: 10vw !important;
+    top: 74px !important;
+    transform: none !important;
     .custom-modal-top {
       padding: 0;
       border-bottom: none;
@@ -155,9 +182,9 @@ body {
       }
     }
     &.view-mobile {
-      left: 0;
-      top: 0;
-      transform: none;
+      left: 0 !important;
+      top: 0 !important;
+      transform: none !important;
       /deep/ .base-modal-footer {
         display: none !important;
       }
